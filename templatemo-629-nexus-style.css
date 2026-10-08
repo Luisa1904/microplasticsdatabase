@@ -696,3 +696,730 @@ button { font-family: inherit; border: none; background: none; cursor: pointer; 
   .slice, .slice-img, .slice-shade, .slice-reveal, .matrix-img, .matrix-tab p { transition: none !important; }
   .card-macro, .matrix-right { min-height: 100vh; }
 }
+
+.btn-clic {
+    display: inline-block;
+    padding: 14px 28px;
+    background: #00a2ff;
+    color: white;
+    text-decoration: none;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-weight: 700;
+    border-radius: 8px;
+    border: 2px solid #00a2ff;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.btn-clic:hover {
+    background: transparent;
+    color: #00a2ff;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 162, 255, 0.25);
+}
+.btn-presionado {
+    transform: scale(0.95);
+}
+
+/* =========================================================
+   BASE DE DATOS
+   CSS integrado al HTML
+   ========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    overflow-x: hidden;
+}
+
+/* =========================================================
+   CONTENEDOR PRINCIPAL
+   ========================================================= */
+
+.database-page {
+    min-height: 100vh;
+    padding: 120px 6vw 120px;
+    background: var(--titanium);
+    color: var(--carbon);
+    overflow-x: hidden;
+}
+
+.database-container {
+    width: min(1800px, 100%);
+    margin: 0 auto;
+}
+
+/* =========================================================
+   VOLVER
+   ========================================================= */
+
+.back-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+
+    margin-bottom: 70px;
+
+    color: var(--carbon);
+    text-decoration: none;
+
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+
+    transition:
+        opacity .2s ease,
+        transform .2s ease;
+}
+
+.back-button:hover {
+    opacity: .6;
+    transform: translateX(-4px);
+}
+
+/* =========================================================
+   ENCABEZADO
+   ========================================================= */
+
+.database-kicker {
+    margin-bottom: 18px;
+
+    color: var(--volt);
+
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+}
+
+.database-title {
+    margin: 0;
+
+    font-size: clamp(48px, 7vw, 96px);
+    line-height: .94;
+    letter-spacing: -.055em;
+    font-weight: 700;
+}
+
+.database-intro {
+    max-width: 850px;
+
+    margin: 28px 0 75px;
+
+    color: rgba(13, 14, 21, .62);
+
+    font-size: 15px;
+    line-height: 1.85;
+}
+
+/* =========================================================
+   PANEL
+   ========================================================= */
+
+.database-panel {
+    width: 100%;
+
+    border: 1px solid rgba(13, 14, 21, .11);
+
+    background: rgba(255, 255, 255, .40);
+
+    box-shadow:
+        0 30px 80px rgba(13, 14, 21, .07),
+        inset 0 1px 0 rgba(255, 255, 255, .85);
+}
+
+/* =========================================================
+   FILTROS
+   ========================================================= */
+
+.database-toolbar {
+    display: grid;
+
+    grid-template-columns:
+        minmax(280px, 1fr)
+        190px
+        190px
+        auto;
+
+    gap: 14px;
+    align-items: center;
+
+    padding: 26px;
+
+    border-bottom: 1px solid rgba(13, 14, 21, .09);
+
+    background: rgba(255, 255, 255, .30);
+}
+
+.database-toolbar input,
+.database-toolbar select {
+    width: 100%;
+    min-width: 0;
+
+    height: 48px;
+
+    padding: 0 15px;
+
+    border: 1px solid rgba(13, 14, 21, .13);
+    border-radius: 0;
+
+    outline: none;
+
+    background: rgba(255, 255, 255, .68);
+    color: var(--carbon);
+
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-size: 12px;
+
+    transition:
+        border-color .2s ease,
+        background .2s ease,
+        box-shadow .2s ease;
+}
+
+.database-toolbar input {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px;
+}
+
+.database-toolbar input::placeholder {
+    color: rgba(13, 14, 21, .42);
+}
+
+.database-toolbar input:focus,
+.database-toolbar select:focus {
+    border-color: var(--volt);
+    background: #fff;
+
+    box-shadow:
+        0 0 0 3px rgba(0, 162, 255, .06);
+}
+
+.filter-note {
+    padding-left: 4px;
+
+    color: rgba(13, 14, 21, .48);
+
+    font-family: "JetBrains Mono", monospace;
+    font-size: 9px;
+    letter-spacing: .08em;
+    white-space: nowrap;
+    text-transform: uppercase;
+}
+
+/* =========================================================
+   TABLA
+   ========================================================= */
+
+.database-table-wrap {
+    width: 100%;
+
+    padding: 28px;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    -webkit-overflow-scrolling: touch;
+
+    scrollbar-width: thin;
+    scrollbar-color:
+        rgba(13, 14, 21, .28)
+        rgba(13, 14, 21, .06);
+}
+
+.database-table {
+    width: 100%;
+    min-width: 1250px;
+
+    border-collapse: separate;
+    border-spacing: 0 12px;
+}
+
+/* =========================================================
+   CABECERA TABLA
+   ========================================================= */
+
+.database-table th {
+    padding: 12px 17px;
+
+    border-bottom: 1px solid rgba(13, 14, 21, .12);
+
+    color: rgba(13, 14, 21, .48);
+
+    text-align: left;
+
+    font-family: "JetBrains Mono", monospace;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    line-height: 1.5;
+
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+/* =========================================================
+   FILAS
+   ========================================================= */
+
+.database-table tbody tr {
+    background: rgba(255, 255, 255, .70);
+
+    box-shadow:
+        0 4px 18px rgba(13, 14, 21, .035);
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease,
+        background .2s ease;
+}
+
+.database-table tbody tr:hover {
+    background: #fff;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 12px 30px rgba(13, 14, 21, .08);
+}
+
+.database-table td {
+    padding: 24px 18px;
+
+    border-top: 1px solid rgba(13, 14, 21, .04);
+    border-bottom: 1px solid rgba(13, 14, 21, .04);
+
+    vertical-align: top;
+
+    color: rgba(13, 14, 21, .70);
+
+    font-size: 11px;
+    line-height: 1.7;
+}
+
+/* Bordes suaves en vez de cuadrícula */
+
+.database-table td:first-child {
+    border-left: 1px solid rgba(13, 14, 21, .04);
+}
+
+.database-table td:last-child {
+    border-right: 1px solid rgba(13, 14, 21, .04);
+}
+
+/* =========================================================
+   COLUMNAS
+   ========================================================= */
+
+.database-table td:nth-child(1) {
+    width: 70px;
+
+    color: var(--volt);
+
+    font-family: "JetBrains Mono", monospace;
+    font-weight: 700;
+}
+
+.database-table td:nth-child(2) {
+    min-width: 240px;
+    max-width: 320px;
+
+    color: var(--carbon);
+    font-weight: 700;
+}
+
+.database-table td:nth-child(3) {
+    min-width: 110px;
+}
+
+.database-table td:nth-child(4) {
+    min-width: 160px;
+}
+
+.database-table td:nth-child(5) {
+    min-width: 130px;
+}
+
+.database-table td:nth-child(6) {
+    min-width: 180px;
+}
+
+.database-table td:nth-child(7) {
+    min-width: 150px;
+}
+
+.database-table td:nth-child(8) {
+    min-width: 320px;
+    max-width: 420px;
+}
+
+.database-table td:nth-child(9) {
+    min-width: 170px;
+}
+
+/* =========================================================
+   TÍTULO / AUTORES
+   ========================================================= */
+
+.database-title-cell {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: var(--carbon);
+
+    font-weight: 700;
+    line-height: 1.45;
+}
+
+.database-authors {
+    display: block;
+
+    color: rgba(13, 14, 21, .45);
+
+    font-family: "JetBrains Mono", monospace;
+    font-size: 8px;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+/* =========================================================
+   MICROPLÁSTICOS / ETIQUETAS
+   ========================================================= */
+
+.database-tag {
+    display: inline-block;
+
+    margin: 2px 4px 4px 0;
+    padding: 5px 7px;
+
+    border: 1px solid rgba(13, 14, 21, .12);
+
+    background: rgba(255, 255, 255, .55);
+
+    color: rgba(13, 14, 21, .62);
+
+    font-family: "JetBrains Mono", monospace;
+    font-size: 8px;
+    line-height: 1.2;
+
+    text-transform: uppercase;
+}
+
+.database-tag--blue {
+    border-color: rgba(0, 162, 255, .30);
+    color: #007fc5;
+}
+
+/* =========================================================
+   TEXTOS LARGOS
+   ========================================================= */
+
+.database-long-text {
+    max-width: 360px;
+}
+
+.database-text-content {
+    display: -webkit-box;
+    display: box;
+
+    overflow: hidden;
+
+    -webkit-box-orient: vertical;
+    box-orient: vertical;
+
+    -webkit-line-clamp: 4;
+    line-clamp: 4;
+
+    max-height: 7.2em;
+
+    transition: max-height .25s ease;
+}
+
+.database-text-content.expanded {
+    display: block;
+
+    max-height: none;
+}
+
+/* =========================================================
+   VER MÁS
+   ========================================================= */
+
+.database-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    margin-top: 12px;
+    padding: 5px 0;
+
+    border: 0;
+    border-bottom: 1px solid rgba(0, 162, 255, .45);
+
+    background: transparent;
+
+    color: var(--volt);
+
+    cursor: pointer;
+
+    font-family: "JetBrains Mono", monospace;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: .08em;
+
+    text-transform: uppercase;
+}
+
+.database-more::after {
+    content: "↓";
+}
+
+.database-more.active::after {
+    content: "↑";
+}
+
+.database-more:hover {
+    border-color: var(--carbon);
+    color: var(--carbon);
+}
+
+/* =========================================================
+   DOI
+   ========================================================= */
+
+.database-doi {
+    display: inline-flex;
+    align-items: flex-start;
+    gap: 7px;
+
+    color: var(--carbon);
+
+    font-family: "JetBrains Mono", monospace;
+    font-size: 9px;
+    line-height: 1.5;
+
+    text-decoration: none;
+    word-break: break-word;
+}
+
+.database-doi::before {
+    content: "DOI";
+
+    flex-shrink: 0;
+
+    padding: 3px 5px;
+
+    background: var(--carbon);
+    color: var(--titanium);
+
+    font-size: 7px;
+    font-weight: 700;
+}
+
+.database-doi:hover {
+    color: var(--volt);
+}
+
+/* =========================================================
+   TABLA VACÍA
+   ========================================================= */
+
+.database-empty {
+    padding: 70px 20px !important;
+
+    text-align: center !important;
+
+    color: rgba(13, 14, 21, .45) !important;
+
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px !important;
+
+    text-transform: uppercase;
+}
+
+/* =========================================================
+   SCROLL DE TABLA
+   ========================================================= */
+
+.database-table-wrap::-webkit-scrollbar {
+    height: 7px;
+}
+
+.database-table-wrap::-webkit-scrollbar-track {
+    background: rgba(13, 14, 21, .06);
+}
+
+.database-table-wrap::-webkit-scrollbar-thumb {
+    background: rgba(13, 14, 21, .28);
+}
+
+.database-table-wrap::-webkit-scrollbar-thumb:hover {
+    background: var(--volt);
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.database-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 30px;
+
+    margin-top: 75px;
+    padding: 30px 5px 0;
+
+    border-top: 1px solid rgba(13, 14, 21, .10);
+
+    color: rgba(13, 14, 21, .45);
+
+    font-family: "JetBrains Mono", monospace;
+    font-size: 9px;
+    letter-spacing: .05em;
+    line-height: 1.7;
+
+    text-transform: uppercase;
+}
+
+.database-footer .mono {
+    text-align: right;
+}
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 1000px) {
+
+    .database-page {
+        padding: 100px 4vw;
+    }
+
+    .database-intro {
+        margin-bottom: 55px;
+    }
+
+    .database-toolbar {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .database-toolbar input {
+        grid-column: 1 / -1;
+    }
+
+    .filter-note {
+        justify-self: start;
+    }
+
+    .database-table-wrap {
+        padding: 20px;
+    }
+
+    .database-footer {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .database-footer .mono {
+        text-align: left;
+    }
+}
+
+/* =========================================================
+   MÓVIL
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    .database-page {
+        padding: 80px 16px 75px;
+    }
+
+    .back-button {
+        margin-bottom: 45px;
+        font-size: 9px;
+    }
+
+    .database-title {
+        font-size: clamp(42px, 14vw, 70px);
+    }
+
+    .database-intro {
+        margin-top: 20px;
+        margin-bottom: 45px;
+
+        font-size: 13px;
+        line-height: 1.75;
+    }
+
+    .database-toolbar {
+        grid-template-columns: 1fr;
+
+        padding: 16px;
+    }
+
+    .database-toolbar input {
+        grid-column: auto;
+    }
+
+    .filter-note {
+        justify-self: start;
+    }
+
+    .database-table-wrap {
+        padding: 12px;
+    }
+
+    .database-table {
+        min-width: 1250px;
+        border-spacing: 0 9px;
+    }
+
+    .database-table th {
+        padding: 12px 14px;
+    }
+
+    .database-table td {
+        padding: 20px 15px;
+    }
+
+    .database-footer {
+        margin-top: 55px;
+        padding-top: 25px;
+
+        font-size: 8px;
+    }
+}
+
+/* =========================================================
+   MÓVILES MUY PEQUEÑOS
+   ========================================================= */
+
+@media (max-width: 380px) {
+
+    .database-page {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    .database-title {
+        font-size: 40px;
+    }
+
+    .database-toolbar {
+        padding: 12px;
+    }
+}

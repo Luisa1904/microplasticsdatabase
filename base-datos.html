@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<!--
+  Base de datos integrada al diseño Nexus
+  Conserva la estructura visual de la página original.
+  La tabla y los filtros mantienen sus IDs originales.
+-->
+<html lang="es">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Base de datos general · Microplásticos en peces</title>
+
+<meta
+    name="description"
+    content="Base de datos de microplásticos en peces de Latinoamérica, 2016–2026."
+>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap"
+    rel="stylesheet"
+>
+
+<link rel="stylesheet" href="templatemo-629-nexus-style.css">
+
+</head>
+
+<body>
+
+<!-- =========================================================
+     ESTRUCTURA PRINCIPAL
+     ========================================================= -->
+
+<main class="database-page">
+
+    <div class="database-container">
+
+        <!-- Volver -->
+
+        <a href="index.html" class="back-button">
+            ← VOLVER AL INICIO
+        </a>
+
+        <!-- Encabezado -->
+
+        <div class="database-kicker">
+            Base maestra / 01
+        </div>
+
+        <h1 class="database-title">
+            Todos los artículos.
+        </h1>
+
+        <p class="database-intro">
+            Tabla general de la evidencia sobre microplásticos en peces
+            de Latinoamérica entre 2016 y 2026. Utiliza los filtros para
+            explorar los registros por país, hábitat, especie, autor,
+            título o DOI.
+        </p>
+
+
+        <!-- =====================================================
+             PANEL DE BASE DE DATOS
+        ====================================================== -->
+
+        <section class="database-panel">
+
+
+            <!-- =================================================
+                 FILTROS
+            ================================================== -->
+
+            <div class="database-toolbar">
+
+                <input
+                    id="articleSearch"
+                    type="search"
+                    placeholder="Buscar título, autor, especie, DOI…"
+                    aria-label="Buscar artículos"
+                >
+
+                <select
+                    id="articleCountry"
+                    aria-label="Filtrar por país"
+                >
+
+                    <option value="">
+                        Todos los países
+                    </option>
+
+                    <option>Colombia</option>
+                    <option>Brasil</option>
+                    <option>México</option>
+                    <option>Chile</option>
+                    <option>Perú</option>
+                    <option>Argentina</option>
+
+                </select>
+
+
+                <select
+                    id="articleHabitat"
+                    aria-label="Filtrar por hábitat"
+                >
+
+                    <option value="">
+                        Todos los hábitats
+                    </option>
+
+                    <option>Marino</option>
+                    <option>Estuarino</option>
+                    <option>Dulceacuícola</option>
+
+                </select>
+
+
+                <span
+                    id="articleCount"
+                    class="filter-note"
+                >
+                    Cargando…
+                </span>
+
+            </div>
+
+
+            <!-- =================================================
+                 TABLA
+            ================================================== -->
+
+            <div class="database-table-wrap">
+                <table class="database-table">
+                    <thead>
+                        <tr>
+                            <th>Año</th>
+                            <th>Título</th>
+                            <th>País - Localidad
+                            </th>
+                            <th>Especies</th>
+                            <th>Hábitat</th>
+                            <th>Cuenca/Rio/Mar</th>
+                            <th>Microplásticos</th>
+                            <th>Método</th>
+                            <th>Resumen</th>
+                            <th>DOI</th>
+                            <th>Notas importantes</th>
+                        </tr>
+                    </thead>
+                    <tbody id="articleRows">
+
+<!-- ARTÍCULO 1 -->
+    <tr>
+        <td>2020</td>
+        <td>A comparison of microplastic contamination in freshwater fish from natural and farmed sources</td>
+        <td>Colombia - Huila</td>
+        <td>Oreocromis nicloticus, Prochilodus magdalenae, Pimelodus grosskopfii</td>
+        <td>Aguadulce</td>
+        <td>Río Magdalena después de su paso por la ciudad de Neiva y el río Bache</td>
+        <td>Fragmentos, Fibras, Celulosa, Celofan, PET, PES</td>
+        <td>Metodología 2</td>
+        <td>En este estudio, se investigó la prevalencia de microplásticos (MPs) 
+            en peces de agua dulce de cultivo y de fuentes naturales.</td>
+        <td><a href="https://doi.org/10.1007/s11356-020-11605-2">https://doi.org/10.1007/s11356-020-11605-2</a></td>
+        <td>Se analizaron 15 estomagos. De 208 fragmentos. 22,4% corresponden a MP. Sin control de contaminación.</td>
+    </tr>
+
+<!-- ARTÍCULO 2 -->
+    <tr>
+        <td>2026</td>
+        <td>Anthropogenic microparticles ingestion patterns in fish across trophic guilds in mangrove estuaries</td>
+        <td>Brasil</td>
+        <td>Atherinella brasiliensis, Batrachoides surinamensis, Strongylura timucu, Rhinosardinia amazonica, Anchovia clupeoides, Lycengraulis grossidens, Pterengraulis atherinoides, Anableps anableps, Mugil sp., Centropomus undecimalis, Diapterus auratus, Genyatremus luteus, Lutjanus jocu, Cynoscion acoupa, Macrodon ancylodon, Stellifer naso, Achirus achirus, Cathorops spixii, Sciades herzbergii, Sphoeroides psittacus</td>
+        <td>Estuarino</td>
+        <td>Estuario del Río Pará y Caeté; Delta de Parnaíba</td>
+        <td>Color azul, color negro, Celulosa y PAN, PA, PP, Fibras, Fragmentos, Celulosa</td>
+        <td>Metodología 3</td>
+        <td>Se encontraron 128 MP en total, en el 12% de las muestras, el 60% de las microparticulas eran fibras de celulosa. 
+            Se analalizaron 736 estomagos. Sin control de contaminación.</td>
+        <td><a href="https://doi.org/10.1007/s10750-026-06151-w">https://doi.org/10.1007/s10750-026-06151-w</a></td>
+        <td>En este estudio se evaluaron estadios juveniles, porque es lo que se colectó más.</td>
+    </tr>
+
+<!-- ARTÍCULO 3 -->
+    <tr>
+        <td>2020</td>
+        <td>A comparison of microplastic contamination in freshwater fish from natural and farmed sources</td>
+        <td>Colombia - Huila</td>
+        <td>Oreocromis nicloticus, Prochilodus magdalenae, Pimelodus grosskopfii</td>
+        <td>Aguadulce</td>
+        <td>Río Magdalena después de su paso por la ciudad de Neiva y el río Bache</td>
+        <td>Fragmentos, Fibras, Celulosa, Celofan, PET, PES</td>
+        <td>Metodología 2</td>
+        <td>En este estudio, se investigó la prevalencia de microplásticos (MPs) 
+            en peces de agua dulce de cultivo y de fuentes naturales.</td>
+        <td><href>https://doi.org/10.1007/s11356-020-11605-2</href></td>
+        <td>Se analizaron 15 estomagos. De 208 fragmentos. 22,4% corresponden a MP. Sin control de contaminación.</td>
+    </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             PIE
+        ====================================================== -->
+
+        <footer class="database-footer">
+
+            <span>
+                Base de datos de microplásticos en peces
+                · Latinoamérica · 2016–2026
+            </span>
+
+            <span class="mono">
+                INTERFAZ DE INVESTIGACIÓN / V.01
+            </span>
+
+        </footer>
+
+    </div>
+
+</main>
+
+<!-- =========================================================
+     SCRIPT ORIGINAL
+     ====================================================== -->
+
+<script src="templatemo-629-nexus-script.js"></script>
+
+</body>
+</html>

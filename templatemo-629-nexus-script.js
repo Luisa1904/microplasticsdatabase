@@ -152,3 +152,39 @@
     });
   });
 })();
+
+document.querySelectorAll(".btn-clic").forEach(function(boton) {
+    boton.addEventListener("click", function() {
+        this.classList.add("btn-presionado");
+
+        setTimeout(() => {
+            this.classList.remove("btn-presionado");
+        }, 200);
+    });
+});
+
+/* =========================================================
+   VER MÁS / VER MENOS PARA TEXTOS LARGOS
+   Añadir al final de script.js
+   ========================================================= */
+
+document.addEventListener("click", function (event) {
+
+    const button = event.target.closest(".database-more");
+
+    if (!button) return;
+
+    const content = button
+        .closest(".database-long-text")
+        ?.querySelector(".database-text-content");
+
+    if (!content) return;
+
+    const expanded = content.classList.toggle("expanded");
+
+    button.classList.toggle("active", expanded);
+
+    button.textContent = expanded
+        ? "Ver menos"
+        : "Ver más";
+});
