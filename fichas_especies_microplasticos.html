@@ -1,0 +1,1697 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>Fichas técnicas de especies · Microplásticos</title><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&amp;family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/><style>:root {
+  --titanium: #F4F5F6; /* brushed titanium, cool metallic light grey */
+  --carbon: #0D0E15; /* carbon matte, deep light-absorbing dark */
+  --volt: #00a2ff; /* acid volt, electric neon accent 00a2ff*/
+  --steel: #D9E0E4; /* muted steel lines and borders */
+  --graphite: #1A1D1A; /* deep graphite grey with a whisper of green */
+  --white: #FFFFFF;
+  --hud-h: 60px;
+  --ease-silk: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: auto; }
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background: var(--titanium);
+  color: var(--carbon);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { display: block; max-width: 100%; }
+
+a { color: inherit; text-decoration: none; }
+
+button { font-family: inherit; border: none; background: none; cursor: pointer; color: inherit; }
+
+.mono { font-family: 'JetBrains Mono', monospace; }
+
+/* ---------- scroll spacer creates the 400vh track ---------- */
+.scroll-spacer { height: 400vh; }
+
+/* ---------- z-depth card engine ---------- */
+.zcard {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100svh;
+  transform-origin: top center;
+  will-change: transform, opacity;
+  overflow: hidden;
+}
+
+.zcard[data-card="1"] { z-index: 10; }
+.zcard[data-card="2"] { z-index: 20; transform: translateY(100%); }
+.zcard[data-card="3"] { z-index: 30; transform: translateY(100%); }
+.zcard[data-card="4"] { z-index: 40; transform: translateY(100%); }
+
+/* ---------- card 1: the floating hero ---------- */
+.card-hero {
+  background: var(--titanium);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-stage {
+  position: relative;
+  text-align: center;
+  z-index: 5;
+  padding: 0 24px;
+}
+
+.hero-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--carbon);
+  background: var(--volt);
+  display: inline-block;
+  padding: 7px 14px 7px 18px;
+  margin-bottom: 28px;
+}
+
+.hero-title {
+  font-size: clamp(56px, 13vw, 180px);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+  color: var(--carbon);
+}
+
+.hero-sub {
+  margin: 32px auto 0;
+  max-width: 480px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.7;
+  color: #4B515C;
+}
+
+.hero-scroll-hint {
+  position: absolute;
+  bottom: calc(var(--hud-h) + 28px);
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #6A7077;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.hero-scroll-hint::after {
+  content: "";
+  width: 1px;
+  height: 36px;
+  background: linear-gradient(to bottom, var(--carbon), transparent);
+  animation: hint-drop 2.2s var(--ease-silk) infinite;
+}
+
+@keyframes hint-drop {
+  0% { transform: scaleY(0); transform-origin: top; }
+  55% { transform: scaleY(1); transform-origin: top; }
+  56% { transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+
+/* floating translucent glass shapes */
+.glass-shape {
+  position: absolute;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.35);
+  border: 1px solid var(--steel);
+  z-index: 2;
+}
+
+.glass-a {
+  width: 220px;
+  height: 220px;
+  top: 12%;
+  left: 8%;
+  border-radius: 32px;
+  animation: bob-a 9s ease-in-out infinite;
+}
+
+.glass-b {
+  width: 150px;
+  height: 150px;
+  bottom: 18%;
+  right: 10%;
+  border-radius: 50%;
+  animation: bob-b 7s ease-in-out infinite;
+}
+
+.glass-c {
+  width: 110px;
+  height: 110px;
+  top: 20%;
+  right: 22%;
+  border-radius: 20px;
+  transform: rotate(18deg);
+  animation: bob-c 11s ease-in-out infinite;
+}
+
+@keyframes bob-a {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-26px); }
+}
+
+@keyframes bob-b {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(22px); }
+}
+
+@keyframes bob-c {
+  0%, 100% { transform: translateY(0) rotate(18deg); }
+  50% { transform: translateY(-18px) rotate(24deg); }
+}
+
+/* faint engineering grid behind the hero */
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(var(--steel) 1px, transparent 1px), linear-gradient(90deg, var(--steel) 1px, transparent 1px);
+  background-size: 80px 80px;
+  opacity: 0.35;
+  z-index: 1;
+}
+
+/* ---------- card 2: the engineered image overlay ---------- */
+.card-macro { background: var(--carbon); }
+
+.macro-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.macro-shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(13, 14, 21, 0.25), rgba(13, 14, 21, 0.05) 40%, rgba(13, 14, 21, 0.35));
+}
+
+.crosshair-v, .crosshair-h { position: absolute; background: rgba(255, 255, 255, 0.4); }
+
+.crosshair-v { top: 0; bottom: 0; left: 62%; width: 1px; }
+
+.crosshair-h { left: 0; right: 0; top: 40%; height: 1px; }
+
+.node-dot {
+  position: absolute;
+  left: 62%;
+  top: 40%;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--volt);
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 0 6px rgba(209, 255, 0, 0.25), 0 0 24px 4px rgba(209, 255, 0, 0.8);
+  animation: node-pulse 2.6s ease-in-out infinite;
+}
+
+@keyframes node-pulse {
+  0%, 100% { box-shadow: 0 0 0 6px rgba(209, 255, 0, 0.25), 0 0 24px 4px rgba(209, 255, 0, 0.8); }
+  50% { box-shadow: 0 0 0 12px rgba(209, 255, 0, 0.12), 0 0 36px 8px rgba(209, 255, 0, 0.95); }
+}
+
+.node-box {
+  position: absolute;
+  left: calc(62% + 28px);
+  top: calc(40% + 28px);
+  width: 280px;
+  max-width: calc(100vw - 48px);
+  background: rgba(13, 14, 21, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(217, 224, 228, 0.3);
+  color: var(--titanium);
+  padding: 20px;
+}
+
+.node-box-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  color: var(--volt);
+  margin-bottom: 14px;
+}
+
+.node-stat {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(217, 224, 228, 0.15);
+}
+
+.node-stat:last-child { border-bottom: none; }
+
+.node-stat span:last-child { color: #00a2ff; }
+
+.macro-caption {
+  position: absolute;
+  left: 40px;
+  bottom: calc(var(--hud-h) + 36px);
+  color: var(--titanium);
+  max-width: 420px;
+}
+
+.macro-caption .mono {
+  font-size: 11px;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: #00a2ff;
+  display: block;
+  margin-bottom: 14px;
+}
+
+.macro-caption h2 {
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+/* ---------- card 3: the kinetic accordion fold ---------- */
+.card-fold { background: var(--white); display: flex; flex-direction: column; }
+
+.fold-head {
+  padding: 28px 40px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+}
+
+.fold-head h2 { font-size: clamp(22px, 3vw, 34px); font-weight: 700; letter-spacing: -0.02em; }
+
+.fold-head .mono { font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: #6A7077; }
+
+.accordion {
+  flex: 1;
+  display: flex;
+  width: 100%;
+  margin-top: 24px;
+  border-top: 1px solid var(--steel);
+}
+
+.slice {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+  overflow: hidden;
+  border-right: 1px solid var(--steel);
+  background: var(--white);
+  transition: flex-grow 1.2s var(--ease-silk);
+  cursor: pointer;
+  text-align: left;
+  padding: 0;
+}
+
+.slice:last-child { border-right: none; }
+
+.slice.active { flex-grow: 3.7; }
+
+.slice-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transform: scale(1.06);
+  transition: opacity 1.2s var(--ease-silk), transform 1.2s var(--ease-silk);
+}
+
+.slice.active .slice-img { opacity: 1; transform: scale(1); }
+
+.slice-shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(13, 14, 21, 0.75), rgba(13, 14, 21, 0) 55%);
+  opacity: 0;
+  transition: opacity 1.2s var(--ease-silk);
+}
+
+.slice.active .slice-shade { opacity: 1; }
+
+.slice-idle {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 28px 0 calc(var(--hud-h) + 28px);
+  align-items: center;
+  transition: opacity 0.6s var(--ease-silk);
+}
+
+.slice.active .slice-idle { opacity: 0; }
+
+.slice-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--carbon);
+  letter-spacing: 0.2em;
+}
+
+.slice-idle-title {
+  writing-mode: vertical-rl;
+  font-size: clamp(16px, 2vw, 22px);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--carbon);
+}
+
+.slice-reveal {
+  position: absolute;
+  left: 28px;
+  right: 28px;
+  bottom: calc(var(--hud-h) + 28px);
+  color: var(--titanium);
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 1.2s var(--ease-silk), transform 1.2s var(--ease-silk);
+}
+
+.slice.active .slice-reveal { opacity: 1; transform: translateY(0); }
+
+.slice-reveal .mono {
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #00a2ff;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.slice-reveal h3 { font-size: clamp(20px, 2.6vw, 32px); font-weight: 700; letter-spacing: -0.01em; margin-bottom: 10px; white-space: nowrap; }
+
+.slice-reveal p { font-size: 14px; line-height: 1.6; max-width: 380px; color: rgba(244, 245, 246, 0.85); }
+
+.slice:focus-visible { outline: 2px solid var(--carbon); outline-offset: -2px; }
+
+/* ---------- card 4: the matrix tabs and signature ---------- */
+.card-matrix {
+  background: var(--graphite);
+  color: var(--titanium);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.matrix-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 60px clamp(28px, 5vw, 80px) calc(var(--hud-h) + 40px);
+}
+
+.matrix-left .mono-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--volt);
+  margin-bottom: 20px;
+}
+
+.matrix-left h2 {
+  font-size: clamp(30px, 4vw, 52px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  margin-bottom: 40px;
+}
+
+.matrix-tab {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 22px 24px;
+  border-left: 2px solid rgba(217, 224, 228, 0.2);
+  transition: border-color 0.5s var(--ease-silk), background 0.5s var(--ease-silk);
+}
+
+.matrix-tab .tab-line {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+}
+
+.matrix-tab .tab-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: #6A7077;
+  transition: color 0.5s var(--ease-silk);
+}
+
+.matrix-tab .tab-name {
+  font-size: clamp(18px, 2vw, 24px);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: rgba(244, 245, 246, 0.55);
+  transition: color 0.5s var(--ease-silk);
+}
+
+.matrix-tab p {
+  margin-top: 10px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: rgba(244, 245, 246, 0.6);
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.7s var(--ease-silk), opacity 0.7s var(--ease-silk);
+}
+
+.matrix-tab.active {
+  border-left-color: var(--volt);
+  background: rgba(209, 255, 0, 0.08);
+}
+
+.matrix-tab.active .tab-num { color: var(--volt); }
+
+.matrix-tab.active .tab-name { color: var(--titanium); }
+
+.matrix-tab.active p { max-height: 120px; opacity: 1; }
+
+.matrix-tab:focus-visible { outline: 2px solid var(--volt); outline-offset: -2px; }
+
+.matrix-right { position: relative; overflow: hidden; }
+
+.matrix-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transform: scale(1.05);
+  transition: opacity 1s var(--ease-silk), transform 1.4s var(--ease-silk);
+}
+
+.matrix-img.active { opacity: 1; transform: scale(1); }
+
+.matrix-img-shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, rgba(26, 29, 26, 0.55), rgba(26, 29, 26, 0) 45%);
+  pointer-events: none;
+}
+
+.matrix-caption {
+  position: absolute;
+  right: 28px;
+  bottom: calc(var(--hud-h) + 24px);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--titanium);
+  background: rgba(26, 29, 26, 0.78);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(217, 224, 228, 0.25);
+  padding: 10px 16px;
+}
+
+/* ---------- the permanent hud signature bar ---------- */
+.hud {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: var(--hud-h);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 0 clamp(20px, 4vw, 40px);
+  background: rgba(244, 245, 246, 0.82);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid var(--steel);
+}
+
+.hud-brand {
+  font-weight: 300;
+  letter-spacing: 0.22em;
+  font-size: 13px;
+  color: var(--carbon);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap;
+}
+
+.hud-brand .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--volt);
+  box-shadow: 0 0 0 1px rgba(13, 14, 21, 0.35);
+}
+
+.hud-credit {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: #6A7077;
+  white-space: nowrap;
+}
+
+.hud-credit a { color: var(--carbon); border-bottom: 1px solid var(--volt); padding-bottom: 1px; }
+
+.hud-progress {
+  flex: 1;
+  max-width: 320px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.hud-track {
+  flex: 1;
+  height: 2px;
+  background: var(--steel);
+  position: relative;
+  overflow: hidden;
+}
+
+.hud-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 0%;
+  background: var(--volt);
+}
+
+.hud-pct {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--carbon);
+  min-width: 44px;
+  text-align: right;
+}
+
+.hud-nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-left: 20px;
+  border-left: 1px solid var(--steel);
+}
+
+.hud-arrow {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--steel);
+  background: var(--white);
+  color: var(--carbon);
+  transition: background 0.4s var(--ease-silk), border-color 0.4s var(--ease-silk), color 0.4s var(--ease-silk), opacity 0.4s var(--ease-silk);
+}
+
+.hud-arrow svg { width: 14px; height: 14px; display: block; }
+
+.hud-arrow:hover:not(:disabled) {
+  background: var(--volt);
+  border-color: var(--carbon);
+  color: var(--carbon);
+}
+
+.hud-arrow:disabled { opacity: 0.3; cursor: default; }
+
+.hud-arrow:focus-visible { outline: 2px solid var(--carbon); outline-offset: 2px; }
+
+/* ---------- responsive ---------- */
+@media (max-width: 900px) {
+  .glass-a { width: 140px; height: 140px; left: 4%; }
+  .glass-b { width: 100px; height: 100px; right: 6%; }
+  .glass-c { width: 80px; height: 80px; right: 12%; }
+  .crosshair-v { left: 50%; }
+  .node-dot { left: 50%; }
+  .node-box { left: 24px; right: 24px; width: auto; top: calc(40% + 28px); }
+  .macro-caption { left: 24px; right: 24px; }
+  .accordion { flex-direction: column; }
+  .slice { border-right: none; border-bottom: 1px solid var(--steel); }
+  .slice:last-child { border-bottom: none; }
+  .slice-idle { flex-direction: row; align-items: center; justify-content: space-between; padding: 0 24px; }
+  .slice-idle-title { writing-mode: horizontal-tb; letter-spacing: 0.08em; }
+  .slice-reveal { left: 24px; right: 24px; bottom: 20px; }
+  .slice-reveal h3 { white-space: normal; }
+  .fold-head { padding: 20px 24px 0; flex-direction: column; gap: 6px; }
+  .accordion { margin-top: 16px; }
+  .card-matrix { grid-template-columns: 1fr; grid-template-rows: auto 1fr; }
+  .matrix-left { padding: 40px 24px 24px; justify-content: flex-start; }
+  .matrix-left h2 { margin-bottom: 20px; }
+  .matrix-tab { padding: 14px 16px; }
+  .matrix-caption { right: 16px; bottom: calc(var(--hud-h) + 16px); }
+  .hud-credit { display: none; }
+  .hud-pct { display: none; }
+}
+
+@media (max-height: 540px) {
+  .hero-title { font-size: clamp(40px, 10vh, 90px); }
+  .hero-sub { display: none; }
+  .matrix-tab p { display: none; }
+}
+
+/* ---------- reduced motion: collapse to a calm static document ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .scroll-spacer { display: none; }
+  .zcard {
+    position: relative;
+    width: 100%;
+    height: auto;
+    min-height: 100vh;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+  .glass-a, .glass-b, .glass-c, .node-dot, .hero-scroll-hint::after { animation: none !important; }
+  .slice, .slice-img, .slice-shade, .slice-reveal, .matrix-img, .matrix-tab p { transition: none !important; }
+  .card-macro, .matrix-right { min-height: 100vh; }
+}
+
+.btn-clic {
+    display: inline-block;
+    padding: 14px 28px;
+    background: #00a2ff;
+    color: white;
+    text-decoration: none;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-weight: 700;
+    border-radius: 8px;
+    border: 2px solid #00a2ff;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.btn-clic:hover {
+    background: transparent;
+    color: #00a2ff;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 162, 255, 0.25);
+}
+.btn-presionado {
+    transform: scale(0.95);
+}
+
+/* =========================================================
+   BASE DE DATOS
+   CSS integrado al HTML
+   ========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    overflow-x: hidden;
+}
+
+/* =========================================================
+   CONTENEDOR PRINCIPAL
+   ========================================================= */
+
+.database-page {
+    min-height: 100vh;
+    padding: 120px 6vw 120px;
+    background: var(--titanium);
+    color: var(--carbon);
+    overflow-x: hidden;
+}
+
+.database-container {
+    width: min(1800px, 100%);
+    margin: 0 auto;
+}
+
+/* =========================================================
+   VOLVER
+   ========================================================= */
+
+.back-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+
+    margin-bottom: 70px;
+
+    color: var(--carbon);
+    text-decoration: none;
+
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+
+    transition:
+        opacity .2s ease,
+        transform .2s ease;
+}
+
+.back-button:hover {
+    opacity: .6;
+    transform: translateX(-4px);
+}
+
+/* =========================================================
+   ENCABEZADO
+   ========================================================= */
+
+.database-kicker {
+    margin-bottom: 18px;
+
+    color: var(--volt);
+
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+}
+
+.database-title {
+    margin: 0;
+
+    font-size: clamp(48px, 7vw, 96px);
+    line-height: .94;
+    letter-spacing: -.055em;
+    font-weight: 700;
+}
+
+.database-intro {
+    max-width: 850px;
+
+    margin: 28px 0 75px;
+
+    color: rgba(13, 14, 21, .62);
+
+    font-size: 15px;
+    line-height: 1.85;
+}
+
+/* =========================================================
+   PANEL
+   ========================================================= */
+
+.database-panel {
+    width: 100%;
+
+    border: 1px solid rgba(13, 14, 21, .11);
+
+    background: rgba(255, 255, 255, .40);
+
+    box-shadow:
+        0 30px 80px rgba(13, 14, 21, .07),
+        inset 0 1px 0 rgba(255, 255, 255, .85);
+}
+
+/* =========================================================
+   FILTROS
+   ========================================================= */
+
+.database-toolbar {
+    display: grid;
+
+    grid-template-columns:
+        minmax(280px, 1fr)
+        190px
+        190px
+        auto;
+
+    gap: 14px;
+    align-items: center;
+
+    padding: 26px;
+
+    border-bottom: 1px solid rgba(13, 14, 21, .09);
+
+    background: rgba(255, 255, 255, .30);
+}
+
+.database-toolbar input,
+.database-toolbar select {
+    width: 100%;
+    min-width: 0;
+
+    height: 48px;
+
+    padding: 0 15px;
+
+    border: 1px solid rgba(13, 14, 21, .13);
+    border-radius: 0;
+
+    outline: none;
+
+    background: rgba(255, 255, 255, .68);
+    color: var(--carbon);
+
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-size: 12px;
+
+    transition:
+        border-color .2s ease,
+        background .2s ease,
+        box-shadow .2s ease;
+}
+
+.database-toolbar input {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px;
+}
+
+.database-toolbar input::placeholder {
+    color: rgba(13, 14, 21, .42);
+}
+
+.database-toolbar input:focus,
+.database-toolbar select:focus {
+    border-color: var(--volt);
+    background: #fff;
+
+    box-shadow:
+        0 0 0 3px rgba(0, 162, 255, .06);
+}
+
+.filter-note {
+    padding-left: 4px;
+
+    color: rgba(13, 14, 21, .48);
+
+    font-family: "JetBrains Mono", monospace;
+    font-size: 9px;
+    letter-spacing: .08em;
+    white-space: nowrap;
+    text-transform: uppercase;
+}
+
+/* =========================================================
+   TABLA
+   ========================================================= */
+
+.database-table-wrap {
+    width: 100%;
+
+    padding: 28px;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    -webkit-overflow-scrolling: touch;
+
+    scrollbar-width: thin;
+    scrollbar-color:
+        rgba(13, 14, 21, .28)
+        rgba(13, 14, 21, .06);
+}
+
+.database-table {
+    width: 100%;
+    min-width: 1250px;
+
+    border-collapse: separate;
+    border-spacing: 0 12px;
+}
+
+/* =========================================================
+   CABECERA TABLA
+   ========================================================= */
+
+.database-table th {
+    padding: 12px 17px;
+
+    border-bottom: 1px solid rgba(13, 14, 21, .12);
+
+    color: rgba(13, 14, 21, .48);
+
+    text-align: left;
+
+    font-family: "JetBrains Mono", monospace;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    line-height: 1.5;
+
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+/* =========================================================
+   FILAS
+   ========================================================= */
+
+.database-table tbody tr {
+    background: rgba(255, 255, 255, .70);
+
+    box-shadow:
+        0 4px 18px rgba(13, 14, 21, .035);
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease,
+        background .2s ease;
+}
+
+.database-table tbody tr:hover {
+    background: #fff;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 12px 30px rgba(13, 14, 21, .08);
+}
+
+.database-table td {
+    padding: 24px 18px;
+
+    border-top: 1px solid rgba(13, 14, 21, .04);
+    border-bottom: 1px solid rgba(13, 14, 21, .04);
+
+    vertical-align: top;
+
+    color: rgba(13, 14, 21, .70);
+
+    font-size: 11px;
+    line-height: 1.7;
+}
+
+/* Bordes suaves en vez de cuadrícula */
+
+.database-table td:first-child {
+    border-left: 1px solid rgba(13, 14, 21, .04);
+}
+
+.database-table td:last-child {
+    border-right: 1px solid rgba(13, 14, 21, .04);
+}
+
+/* =========================================================
+   COLUMNAS
+   ========================================================= */
+
+.database-table td:nth-child(1) {
+    width: 70px;
+
+    color: var(--volt);
+
+    font-family: "JetBrains Mono", monospace;
+    font-weight: 700;
+}
+
+.database-table td:nth-child(2) {
+    min-width: 240px;
+    max-width: 320px;
+
+    color: var(--carbon);
+    font-weight: 700;
+}
+
+.database-table td:nth-child(3) {
+    min-width: 110px;
+}
+
+.database-table td:nth-child(4) {
+    min-width: 160px;
+}
+
+.database-table td:nth-child(5) {
+    min-width: 130px;
+}
+
+.database-table td:nth-child(6) {
+    min-width: 180px;
+}
+
+.database-table td:nth-child(7) {
+    min-width: 150px;
+}
+
+.database-table td:nth-child(8) {
+    min-width: 320px;
+    max-width: 420px;
+}
+
+.database-table td:nth-child(9) {
+    min-width: 170px;
+}
+
+/* =========================================================
+   TÍTULO / AUTORES
+   ========================================================= */
+
+.database-title-cell {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: var(--carbon);
+
+    font-weight: 700;
+    line-height: 1.45;
+}
+
+.database-authors {
+    display: block;
+
+    color: rgba(13, 14, 21, .45);
+
+    font-family: "JetBrains Mono", monospace;
+    font-size: 8px;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+/* =========================================================
+   MICROPLÁSTICOS / ETIQUETAS
+   ========================================================= */
+
+.database-tag {
+    display: inline-block;
+
+    margin: 2px 4px 4px 0;
+    padding: 5px 7px;
+
+    border: 1px solid rgba(13, 14, 21, .12);
+
+    background: rgba(255, 255, 255, .55);
+
+    color: rgba(13, 14, 21, .62);
+
+    font-family: "JetBrains Mono", monospace;
+    font-size: 8px;
+    line-height: 1.2;
+
+    text-transform: uppercase;
+}
+
+.database-tag--blue {
+    border-color: rgba(0, 162, 255, .30);
+    color: #007fc5;
+}
+
+/* =========================================================
+   TEXTOS LARGOS
+   ========================================================= */
+
+.database-long-text {
+    max-width: 360px;
+}
+
+.database-text-content {
+    display: -webkit-box;
+    display: box;
+
+    overflow: hidden;
+
+    -webkit-box-orient: vertical;
+    box-orient: vertical;
+
+    -webkit-line-clamp: 4;
+    line-clamp: 4;
+
+    max-height: 7.2em;
+
+    transition: max-height .25s ease;
+}
+
+.database-text-content.expanded {
+    display: block;
+
+    max-height: none;
+}
+
+/* =========================================================
+   VER MÁS
+   ========================================================= */
+
+.database-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    margin-top: 12px;
+    padding: 5px 0;
+
+    border: 0;
+    border-bottom: 1px solid rgba(0, 162, 255, .45);
+
+    background: transparent;
+
+    color: var(--volt);
+
+    cursor: pointer;
+
+    font-family: "JetBrains Mono", monospace;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: .08em;
+
+    text-transform: uppercase;
+}
+
+.database-more::after {
+    content: "↓";
+}
+
+.database-more.active::after {
+    content: "↑";
+}
+
+.database-more:hover {
+    border-color: var(--carbon);
+    color: var(--carbon);
+}
+
+/* =========================================================
+   DOI
+   ========================================================= */
+
+.database-doi {
+    display: inline-flex;
+    align-items: flex-start;
+    gap: 7px;
+
+    color: var(--carbon);
+
+    font-family: "JetBrains Mono", monospace;
+    font-size: 9px;
+    line-height: 1.5;
+
+    text-decoration: none;
+    word-break: break-word;
+}
+
+.database-doi::before {
+    content: "DOI";
+
+    flex-shrink: 0;
+
+    padding: 3px 5px;
+
+    background: var(--carbon);
+    color: var(--titanium);
+
+    font-size: 7px;
+    font-weight: 700;
+}
+
+.database-doi:hover {
+    color: var(--volt);
+}
+
+/* =========================================================
+   TABLA VACÍA
+   ========================================================= */
+
+.database-empty {
+    padding: 70px 20px !important;
+
+    text-align: center !important;
+
+    color: rgba(13, 14, 21, .45) !important;
+
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px !important;
+
+    text-transform: uppercase;
+}
+
+/* =========================================================
+   SCROLL DE TABLA
+   ========================================================= */
+
+.database-table-wrap::-webkit-scrollbar {
+    height: 7px;
+}
+
+.database-table-wrap::-webkit-scrollbar-track {
+    background: rgba(13, 14, 21, .06);
+}
+
+.database-table-wrap::-webkit-scrollbar-thumb {
+    background: rgba(13, 14, 21, .28);
+}
+
+.database-table-wrap::-webkit-scrollbar-thumb:hover {
+    background: var(--volt);
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.database-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 30px;
+
+    margin-top: 75px;
+    padding: 30px 5px 0;
+
+    border-top: 1px solid rgba(13, 14, 21, .10);
+
+    color: rgba(13, 14, 21, .45);
+
+    font-family: "JetBrains Mono", monospace;
+    font-size: 9px;
+    letter-spacing: .05em;
+    line-height: 1.7;
+
+    text-transform: uppercase;
+}
+
+.database-footer .mono {
+    text-align: right;
+}
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 1000px) {
+
+    .database-page {
+        padding: 100px 4vw;
+    }
+
+    .database-intro {
+        margin-bottom: 55px;
+    }
+
+    .database-toolbar {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .database-toolbar input {
+        grid-column: 1 / -1;
+    }
+
+    .filter-note {
+        justify-self: start;
+    }
+
+    .database-table-wrap {
+        padding: 20px;
+    }
+
+    .database-footer {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .database-footer .mono {
+        text-align: left;
+    }
+}
+
+/* =========================================================
+   MÓVIL
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    .database-page {
+        padding: 80px 16px 75px;
+    }
+
+    .back-button {
+        margin-bottom: 45px;
+        font-size: 9px;
+    }
+
+    .database-title {
+        font-size: clamp(42px, 14vw, 70px);
+    }
+
+    .database-intro {
+        margin-top: 20px;
+        margin-bottom: 45px;
+
+        font-size: 13px;
+        line-height: 1.75;
+    }
+
+    .database-toolbar {
+        grid-template-columns: 1fr;
+
+        padding: 16px;
+    }
+
+    .database-toolbar input {
+        grid-column: auto;
+    }
+
+    .filter-note {
+        justify-self: start;
+    }
+
+    .database-table-wrap {
+        padding: 12px;
+    }
+
+    .database-table {
+        min-width: 1250px;
+        border-spacing: 0 9px;
+    }
+
+    .database-table th {
+        padding: 12px 14px;
+    }
+
+    .database-table td {
+        padding: 20px 15px;
+    }
+
+    .database-footer {
+        margin-top: 55px;
+        padding-top: 25px;
+
+        font-size: 8px;
+    }
+}
+
+/* =========================================================
+   MÓVILES MUY PEQUEÑOS
+   ========================================================= */
+
+@media (max-width: 380px) {
+
+    .database-page {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    .database-title {
+        font-size: 40px;
+    }
+
+    .database-toolbar {
+        padding: 12px;
+    }
+}
+.species-page{min-height:100vh;padding:100px 5vw 120px;background:var(--titanium);color:var(--carbon)}
+.species-container{width:min(1500px,100%);margin:0 auto}
+.species-kicker{font:700 10px/1 "JetBrains Mono",monospace;letter-spacing:.16em;text-transform:uppercase;color:var(--volt);margin-bottom:18px}
+.species-title{margin:0;font-size:clamp(46px,7vw,94px);line-height:.94;letter-spacing:-.055em}
+.species-intro{max-width:820px;margin:24px 0 48px;color:rgba(13,14,21,.62);font-size:14px;line-height:1.8}
+.species-tools{display:grid;grid-template-columns:minmax(260px,1fr) 190px 190px;gap:12px;margin-bottom:28px}
+.species-tools input,.species-tools select{height:48px;padding:0 14px;border:1px solid rgba(13,14,21,.13);background:rgba(255,255,255,.7);color:var(--carbon);font:10px "JetBrains Mono",monospace;outline:none}
+.species-tools input:focus,.species-tools select:focus{border-color:var(--volt);box-shadow:0 0 0 3px rgba(0,162,255,.06)}
+.species-count{margin:0 0 20px;font:9px "JetBrains Mono",monospace;letter-spacing:.08em;text-transform:uppercase;color:rgba(13,14,21,.48)}
+.species-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.species-card{background:rgba(255,255,255,.72);border:1px solid rgba(13,14,21,.1);box-shadow:0 12px 35px rgba(13,14,21,.045);padding:28px;transition:transform .2s ease,box-shadow .2s ease,background .2s ease}
+.species-card:hover{transform:translateY(-3px);background:#fff;box-shadow:0 18px 45px rgba(13,14,21,.08)}
+.species-card-head{display:flex;justify-content:space-between;gap:20px;align-items:flex-start;border-bottom:1px solid rgba(13,14,21,.1);padding-bottom:18px;margin-bottom:18px}
+.species-index{font:10px "JetBrains Mono",monospace;color:var(--volt);font-weight:700}
+.species-scientific{margin:3px 0 6px;font-size:25px;line-height:1.15;letter-spacing:-.025em;font-weight:700}
+.species-scientific em{font-style:italic}
+.species-common{font:9px "JetBrains Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:rgba(13,14,21,.45)}
+.species-stat{display:grid;grid-template-columns:130px 1fr;gap:10px;padding:12px 0;border-bottom:1px solid rgba(13,14,21,.06)}
+.species-label{font:8px "JetBrains Mono",monospace;letter-spacing:.08em;text-transform:uppercase;color:rgba(13,14,21,.43);padding-top:2px}
+.species-value{font-size:11px;line-height:1.65;color:rgba(13,14,21,.74)}
+.species-tags{display:flex;flex-wrap:wrap;gap:6px}
+.species-tag{display:inline-flex;padding:5px 7px;border:1px solid rgba(0,162,255,.24);color:#007fc5;background:rgba(0,162,255,.035);font:8px/1.2 "JetBrains Mono",monospace}
+.article-list{display:grid;gap:8px}
+.article-link{display:flex;justify-content:space-between;gap:14px;align-items:flex-start;padding:10px 12px;border:1px solid rgba(13,14,21,.08);background:rgba(244,245,246,.55);font-size:10px;line-height:1.5;transition:.2s ease}
+.article-link:hover{border-color:var(--volt);background:#fff}
+.article-link strong{font-family:"JetBrains Mono",monospace;color:var(--volt);white-space:nowrap}
+.article-link span{color:var(--carbon)}
+.micro-note{font-size:9px;line-height:1.6;color:rgba(13,14,21,.48);margin-top:8px}
+.empty-state{grid-column:1/-1;padding:60px;text-align:center;font:10px "JetBrains Mono",monospace;color:rgba(13,14,21,.45);border:1px solid rgba(13,14,21,.1)}
+.species-footer{margin-top:55px;padding-top:24px;border-top:1px solid rgba(13,14,21,.1);font:9px/1.7 "JetBrains Mono",monospace;color:rgba(13,14,21,.45);text-transform:uppercase}
+.db-row-target{scroll-margin-top:30px}
+@media(max-width:900px){.species-grid{grid-template-columns:1fr}.species-tools{grid-template-columns:1fr 1fr}.species-tools input{grid-column:1/-1}}
+@media(max-width:600px){.species-page{padding:75px 16px 90px}.species-tools{grid-template-columns:1fr}.species-card{padding:22px}.species-stat{grid-template-columns:1fr;gap:5px}.species-scientific{font-size:22px}}
+
+/* =========================================================
+   GALERÍA DE ESPECIES — CUADRÍCULA RESPONSIVA
+   ========================================================= */
+.species-grid{grid-template-columns:repeat(3,minmax(0,1fr));align-items:stretch}
+.species-card{display:flex;flex-direction:column;min-width:0}
+.species-image{margin:-28px -28px 22px;position:relative;background:var(--carbon);overflow:hidden;aspect-ratio:16/10}
+.species-image img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .45s var(--ease-silk),filter .45s var(--ease-silk)}
+.species-card:hover .species-image img{transform:scale(1.035)}
+.species-image figcaption{position:absolute;left:0;right:0;bottom:0;padding:9px 12px;background:linear-gradient(to top,rgba(13,14,21,.92),rgba(13,14,21,.52),transparent);color:var(--titanium);font:8px/1.45 "JetBrains Mono",monospace;letter-spacing:.01em}
+.species-image figcaption a{text-decoration:underline;text-decoration-color:var(--volt);text-underline-offset:2px}
+.species-image figcaption .copyright{display:block;color:rgba(244,245,246,.72);margin-top:2px}
+.species-image-placeholder{margin:-28px -28px 22px;aspect-ratio:16/10;background:linear-gradient(135deg,var(--carbon),var(--graphite));color:rgba(244,245,246,.68);display:flex;align-items:center;justify-content:center;text-align:center;padding:25px;font:9px/1.6 "JetBrains Mono",monospace;letter-spacing:.08em;text-transform:uppercase}
+.species-image-placeholder strong{display:block;color:var(--volt);font-size:11px;margin-bottom:7px}
+@media(max-width:1100px){.species-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:700px){.species-grid{grid-template-columns:1fr}.species-image,.species-image-placeholder{margin:-22px -22px 20px}}
+@media(max-width:420px){.species-card{padding:18px}.species-image,.species-image-placeholder{margin:-18px -18px 18px}}
+</style></head><body><main class="species-page"><div class="species-container"><a class="back-button" href="base_datos_microplasticos.html">← Base de datos</a><div class="species-kicker">Catálogo de especies · microplásticos</div><h1 class="species-title">Fichas<br/>de especies</h1><p class="species-intro">Listado construido a partir de los registros de especies de la base de datos. La distribución corresponde a localidades o cuencas registradas en los artículos asociados. Cuando la base no proporciona un nombre común o un resultado de microplásticos para el artículo, se conserva <strong>N/A</strong>. Las imágenes externas incluyen pie de foto y atribución; las condiciones de reutilización dependen de la fuente indicada.</p><div class="species-tools"><input id="speciesSearch" placeholder="BUSCAR ESPECIE O NOMBRE COMÚN…" type="search"/><select id="articleFilter"><option value="all">TODOS LOS ARTÍCULOS</option><option value="1">ARTÍCULO 001</option><option value="2">ARTÍCULO 002</option><option value="3">ARTÍCULO 003</option><option value="4">ARTÍCULO 004</option><option value="6">ARTÍCULO 006</option><option value="10">ARTÍCULO 010</option><option value="11">ARTÍCULO 011</option><option value="12">ARTÍCULO 012</option><option value="14">ARTÍCULO 014</option><option value="16">ARTÍCULO 016</option><option value="18">ARTÍCULO 018</option><option value="20">ARTÍCULO 020</option><option value="22">ARTÍCULO 022</option><option value="24">ARTÍCULO 024</option><option value="26">ARTÍCULO 026</option><option value="28">ARTÍCULO 028</option><option value="30">ARTÍCULO 030</option><option value="32">ARTÍCULO 032</option><option value="34">ARTÍCULO 034</option><option value="37">ARTÍCULO 037</option></select><select id="microFilter"><option value="all">MICROPLÁSTICOS</option><option value="yes">CON RESULTADO</option><option value="no">SIN RESULTADO</option></select></div><div class="species-count" id="speciesCount"></div><section class="species-grid" id="speciesGrid"><article class="species-card" data-common="n/a" data-name="oreocromis nicloticus"><figure class="species-image"><img alt="Oreocromis nicloticus" decoding="async" loading="lazy" src="https://s3.animalia.bio/animals/photos/full/original/tilpia-ou-sarotherodon-niloticus.webp"/><figcaption><a href="https://animalia.bio/nile-tilapia" rel="noopener noreferrer" target="_blank">Fuente: Animalia.bio</a><span class="copyright">© derechos del autor/fuente según las condiciones de uso de Animalia.bio</span></figcaption></figure>
+<div class="species-card-head"><div><div class="species-index">FICHA 01</div><h2 class="species-scientific"><em>Oreocromis nicloticus</em></h2><div class="species-common">Nombre común: N/A</div></div></div>
+<div class="species-stat"><div class="species-label">Distribución registrada</div><div class="species-value">Colombia — Huila, Represa Betania, el río Magdalena después de su paso por la ciudad de Neiva y el río Bache</div></div>
+<div class="species-stat"><div class="species-label">Microplásticos</div><div><div class="species-tags"><span class="species-tag">Fragmentos y fibras; Celulosa, Celofan. Pero posiblemente por los filtros que usaron; PET, PES</span></div><div class="micro-note">Los resultados se muestran tal como aparecen asociados al artículo en la base; no se atribuyen a la especie de forma exclusiva cuando el artículo agrupa varias especies.</div></div></div>
+<div class="species-stat"><div class="species-label">Artículos encontrados</div><div class="article-list"><a class="article-link" href="base_datos_microplasticos.html#articulo-001"><strong>ART. 001</strong><span>A comparison of microplastic contamination in freshwater fish from natural and farmed sources</span></a></div></div>
+</article><article class="species-card" data-common="n/a" data-name="prochilodus magdalenae"><figure class="species-image"><img alt="Prochilodus magdalenae" decoding="async" loading="lazy" src="https://static.inaturalist.org/photos/245218807/large.jpeg"/><figcaption><a href="https://www.inaturalist.org/taxa/451971-Prochilodus-magdalenae" rel="noopener noreferrer" target="_blank">Fuente: iNaturalist</a><span class="copyright">© autor de la observación; licencia según el registro de la fotografía</span></figcaption></figure>
+<div class="species-card-head"><div><div class="species-index">FICHA 02</div><h2 class="species-scientific"><em>Prochilodus magdalenae</em></h2><div class="species-common">Nombre común: N/A</div></div></div>
+<div class="species-stat"><div class="species-label">Distribución registrada</div><div class="species-value">Colombia — Huila, Represa Betania, el río Magdalena después de su paso por la ciudad de Neiva y el río Bache</div></div>
+<div class="species-stat"><div class="species-label">Microplásticos</div><div><div class="species-tags"><span class="species-tag">Fragmentos y fibras; Celulosa, Celofan. Pero posiblemente por los filtros que usaron; PET, PES</span></div><div class="micro-note">Los resultados se muestran tal como aparecen asociados al artículo en la base; no se atribuyen a la especie de forma exclusiva cuando el artículo agrupa varias especies.</div></div></div>
+<div class="species-stat"><div class="species-label">Artículos encontrados</div><div class="article-list"><a class="article-link" href="base_datos_microplasticos.html#articulo-001"><strong>ART. 001</strong><span>A comparison of microplastic contamination in freshwater fish from natural and farmed sources</span></a></div></div>
+</article><article class="species-card" data-common="n/a" data-name="pimelodus grosskopfii"><figure class="species-image"><img alt="Pimelodus grosskopfii" decoding="async" loading="lazy" src="https://reporte.humboldt.org.co/assets/img/2024/1/105/ficha-105-peces-agua-dulce-alternativas-conservacion-capaz-pimelodus-grosskopfii-imagen-1.jpg"/><figcaption><a href="https://reporte.humboldt.org.co/biodiversidad/2024/cap1/105/" rel="noopener noreferrer" target="_blank">Fuente: Instituto Humboldt</a><span class="copyright">© fuente institucional; condiciones de reutilización según la fuente</span></figcaption></figure>
+<div class="species-card-head"><div><div class="species-index">FICHA 03</div><h2 class="species-scientific"><em>Pimelodus grosskopfii</em></h2><div class="species-common">Nombre común: N/A</div></div></div>
+<div class="species-stat"><div class="species-label">Distribución registrada</div><div class="species-value">Colombia — Huila, Represa Betania, el río Magdalena después de su paso por la ciudad de Neiva y el río Bache</div></div>
+<div class="species-stat"><div class="species-label">Microplásticos</div><div><div class="species-tags"><span class="species-tag">Fragmentos y fibras; Celulosa, Celofan. Pero posiblemente por los filtros que usaron; PET, PES</span></div><div class="micro-note">Los resultados se muestran tal como aparecen asociados al artículo en la base; no se atribuyen a la especie de forma exclusiva cuando el artículo agrupa varias especies.</div></div></div>
+<div class="species-stat"><div class="species-label">Artículos encontrados</div><div class="article-list"><a class="article-link" href="base_datos_microplasticos.html#articulo-001"><strong>ART. 001</strong><span>A comparison of microplastic contamination in freshwater fish from natural and farmed sources</span></a></div></div>
+</article><article class="species-card" data-common="n/a" data-name="atherinella brasiliensis"><figure class="species-image"><img alt="Atherinella brasiliensis" decoding="async" loading="lazy" src="https://inaturalist-open-data.s3.amazonaws.com/photos/341923973/original.jpg"/><figcaption><a href="https://www.gbif.org/pt/taxon/6899D" rel="noopener noreferrer" target="_blank">Fuente: GBIF / iNaturalist</a><span class="copyright">© autor de la observación; licencia según el registro original</span></figcaption></figure>
+<div class="species-card-head"><div><div class="species-index">FICHA 04</div><h2 class="species-scientific"><em>Atherinella brasiliensis</em></h2><div class="species-common">Nombre común: N/A</div></div></div>
+<div class="species-stat"><div class="species-label">Distribución registrada</div><div class="species-value">Brasil — Estuario del Río Pará y Caeté; Delta de Parnaíba</div></div>
+<div class="species-stat"><div class="species-label">Microplásticos</div><div><div class="species-tags"><span class="species-tag">Fibras, Fragmentos; Celulosa en gran cantidad; Azules y negras. Celulosa y PAN, PA y PP</span></div><div class="micro-note">Los resultados se muestran tal como aparecen asociados al artículo en la base; no se atribuyen a la especie de forma exclusiva cuando el artículo agrupa varias especies.</div></div></div>
+<div class="species-stat"><div class="species-label">Artículos encontrados</div><div class="article-list"><a class="article-link" href="base_datos_microplasticos.html#articulo-002"><strong>ART. 002</strong><span>Anthropogenic microparticles ingestion patterns in fish across trophic guilds in mangrove estuaries</span></a></div></div>
+</article><article class="species-card" data-common="n/a" data-name="batrachoides surinamensis"><div class="species-image-placeholder"><div><strong>Imagen pendiente</strong>No se localizó una imagen con procedencia/licencia verificable durante esta búsqueda.</div></div>
+<div class="species-card-head"><div><div class="species-index">FICHA 05</div><h2 class="species-scientific"><em>Batrachoides surinamensis</em></h2><div class="species-common">Nombre común: N/A</div></div></div>
+<div class="species-stat"><div class="species-label">Distribución registrada</div><div class="species-value">Brasil — Estuario del Río Pará y Caeté; Delta de Parnaíba</div></div>
+<div class="species-stat"><div class="species-label">Microplásticos</div><div><div class="species-tags"><span class="species-tag">Fibras, Fragmentos; Celulosa en gran cantidad; Azules y negras. Celulosa y PAN, PA y PP</span></div><div class="micro-note">Los resultados se muestran tal como aparecen asociados al artículo en la base; no se atribuyen a la especie de forma exclusiva cuando el artículo agrupa varias especies.</div></div></div>
+<div class="species-stat"><div class="species-label">Artículos encontrados</div><div class="article-list"><a class="article-link" href="base_datos_microplasticos.html#articulo-002"><strong>ART. 002</strong><span>Anthropogenic microparticles ingestion patterns in fish across trophic guilds in mangrove estuaries</span></a></div></div>
+</article><article class="species-card" data-common="n/a" data-name="strongylura timucu"><figure class="species-image"><img alt="Strongylura timucu" decoding="async" loading="lazy" src="https://www.floridamuseum.ufl.edu/wp-content/uploads/sites/66/2020/02/Plate-99-scaled.jpg"/><figcaption><a href="https://www.floridamuseum.ufl.edu/discover-fish/florida-fishes-gallery/timucu/" rel="noopener noreferrer" target="_blank">Fuente: Florida Museum of Natural History</a><span class="copyright">© Florida Museum of Natural History / autor según la fuente</span></figcaption></figure>
+<div class="species-card-head"><div><div class="species-index">FICHA 06</div><h2 class="species-scientific"><em>Strongylura timucu</em></h2><div class="species-common">Nombre común: N/A</div></div></div>
+<div class="species-stat"><div class="species-label">Distribución registrada</div><div class="species-value">Brasil — Estuario del Río Pará y Caeté; Delta de Parnaíba</div></div>
+<div class="species-stat"><div class="species-label">Microplásticos</div><div><div class="species-tags"><span class="species-tag">Fibras, Fragmentos; Celulosa en gran cantidad; Azules y negras. Celulosa y PAN, PA y PP</span></div><div class="micro-note">Los resultados se muestran tal como aparecen asociados al artículo en la base; no se atribuyen a la especie de forma exclusiva cuando el artículo agrupa varias especies.</div></div></div>
+<div class="species-stat"><div class="species-label">Artículos encontrados</div><div class="article-list"><a class="article-link" href="base_datos_microplasticos.html#articulo-002"><strong>ART. 002</strong><span>Anthropogenic microparticles ingestion patterns in fish across trophic guilds in mangrove estuaries</span></a></div></div>
+</article><article class="species-card" data-common="n/a" data-name="rhinosardinia amazonica"><figure class="species-image"><img alt="Rhinosardinia amazonica" decoding="async" loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Rhinosardinia%20amazonica.jpg"/><figcaption><a href="https://commons.wikimedia.org/wiki/Category:Rhinosardinia_amazonica" rel="noopener noreferrer" target="_blank">Fuente: Wikimedia Commons</a><span class="copyright">Licencia y autoría: consultar la ficha del archivo en Wikimedia Commons</span></figcaption></figure>
+<div class="species-card-head"><div><div class="species-index">FICHA 07</div><h2 class="species-scientific"><em>Rhinosardinia amazonica</em></h2><div class="species-common">Nombre común: N/A</div></div></div>
+<div class="species-stat"><div class="species-label">Distribución registrada</div><div class="species-value">Brasil — Estuario del Río Pará y Caeté; Delta de Parnaíba</div></div>
+<div class="species-stat"><div class="species-label">Microplásticos</div><div><div class="species-tags"><span class="species-tag">Fibras, Fragmentos; Celulosa en gran cantidad; Azules y negras. Celulosa y PAN, PA y PP</span></div><div class="micro-note">Los resultados se muestran tal como aparecen asociados al artículo en la base; no se atribuyen a la especie de forma exclusiva cuando el artículo agrupa varias especies.</div></div></div>
+<div class="species-stat"><div class="species-label">Artículos encontrados</div><div class="article-list"><a class="article-link" href="base_datos_microplasticos.html#articulo-002"><strong>ART. 002</strong><span>Anthropogenic microparticles ingestion patterns in fish across trophic guilds in mangrove estuaries</span></a></div></div>
+</article><article class="species-card" data-common="n/a" data-name="anchovia clupeoides"><figure class="species-image"><img alt="Anchovia clupeoides" decoding="async" loading="lazy" src="https://biogeodb.stri.si.edu/caribbean/resources/img/images/species/2954_866.jpg"/><figcaption><a href="https://biogeodb.stri.si.edu/caribbean/en/thefishes/species/2954" rel="noopener noreferrer" target="_blank">Fuente: Smithsonian Tropical Research Institute</a><span class="copyright">© derechos de la fuente/fotógrafo según la ficha de especie</span></figcaption></figure>
+<div class="species-card-head"><div><div class="species-index">FICHA 08</div><h2 class="species-scientific"><em>Anchovia clupeoides</em></h2><div class="species-common">Nombre común: N/A</div></div></div>
+<div class="species-stat"><div class="species-label">Distribución registrada</div><div class="species-value">Brasil — Estuario del Río Pará y Caeté; Delta de Parnaíba</div></div>
+<div class="species-stat"><div class="species-label">Microplásticos</div><div><div class="species-tags"><span class="species-tag">Fibras, Fragmentos; Celulosa en gran cantidad; Azules y negras. Celulosa y PAN, PA y PP</span></div><div class="micro-note">Los resultados se muestran tal como aparecen asociados al artículo en la base; no se atribuyen a la especie de forma exclusiva cuando el artículo agrupa varias especies.</div></div></div>
+<div class="species-stat"><div class="species-label">Artículos encontrados</div><div class="article-list"><a class="article-link" href="base_datos_microplasticos.html#articulo-002"><strong>ART. 002</strong><span>Anthropogenic microparticles ingestion patterns in fish across trophic guilds in mangrove estuaries</span></a></div></div>
+</article><article class="species-card" data-common="n/a" data-name="lycengraulis grossidens"><figure class="species-image"><img alt="Lycengraulis grossidens" decoding="async" loading="lazy" src="https://sib.gob.ar/api/2.0.0/resized?filename=20160722073911_sib_288_09.jpg&amp;size=700"/><figcaption><a href="https://sib.gob.ar/especies/lycengraulis-grossidens" rel="noopener noreferrer" target="_blank">Fuente: SIB / Pablo Giorgis</a><span class="copyright">© Pablo Giorgis</span></figcaption></figure>
+<div class="species-card-head"><div><div class="species-index">FICHA 09</div><h2 class="species-scientific"><em>Lycengraulis grossidens</em></h2><div class="species-common">Nombre común: N/A</div></div></div>
+<div class="species-stat"><div class="species-label">Distribución registrada</div><div class="species-value">Brasil — Estuario del Río Pará y Caeté; Delta de Parnaíba</div></div>
+<div class="species-stat"><div class="species-label">Microplásticos</div><div><div class="species-tags"><span class="species-tag">Fibras, Fragmentos; Celulosa en gran cantidad; Azules y negras. Celulosa y PAN, PA y PP</span></div><div class="micro-note">Los resultados se muestran tal como aparecen asociados al artículo en la base; no se atribuyen a la especie de forma exclusiva cuando el artículo agrupa varias especies.</div></div></div>
+<div class="species-stat"><div class="species-label">Artículos encontrados</div><div class="article-list"><a class="article-link" href="base_datos_microplasticos.html#articulo-002"><strong>ART. 002</strong><span>Anthropogenic microparticles ingestion patterns in fish across trophic guilds in mangrove estuaries</span></a></div></div>
+</article><article class="species-card" data-common="n/a" data-name="pterengraulis atherinoides"><div class="species-image-placeholder"><div><strong>Imagen pendiente</strong>No se localizó una imagen con procedencia/licencia verificable durante esta búsqueda.</div></div>
+<div class="species-card-head"><div><div class="species-index">FICHA 10</div><h2 class="species-scientific"><em>Pterengraulis atherinoides</em></h2><div class="species-common">Nombre común: N/A</div></div></div>
+<div class="species-stat"><div class="species-label">Distribución registrada</div><div class="species-value">Brasil — Estuario del Río Pará y Caeté; Delta de Parnaíba</div></div>
+<div class="species-stat"><div class="species-label">Microplásticos</div><div><div class="species-tags"><span class="species-tag">Fibras, Fragmentos; Celulosa en gran cantidad; Azules y negras. Celulosa y PAN, PA y PP</span></div><div class="micro-note">Los resultados se muestran tal como aparecen asociados al artículo en la base; no se atribuyen a la especie de forma exclusiva cuando el artículo agrupa varias especies.</div></div></div>
+<div class="species-stat"><div class="species-label">Artículos encontrados</div><div class="article-list"><a class="article-link" href="base_datos_microplasticos.html#articulo-002"><strong>ART. 002</strong><span>Anthropogenic microparticles ingestion patterns in fish across trophic guilds in mangrove estuaries</span></a></div></div>
+</article><article class="species-card" data-common="n/a" data-name="anableps anableps"><figure class="species-image"><img alt="Anableps anableps" decoding="async" loading="lazy" src="https://www.calacademy.org/sites/default/files/styles/manual_crop_standard_960x540/public/creature-closeups_1920x1080_anableps-profile-white-bg_211107.jpg?c=47242e0b7fad2eae34d93ffa55929a6d&amp;itok=dbGHb8Uf"/><figcaption><a href="https://www.calacademy.org/learn-explore/creature-closeups/four-eyed-fish" rel="noopener noreferrer" target="_blank">Fuente: California Academy of Sciences</a><span class="copyright">© California Academy of Sciences / fotógrafo según la fuente</span></figcaption></figure>
+<div class="species-card-head"><div><div class="species-index">FICHA 11</div><h2 class="species-scientific"><em>Anableps anableps</em></h2><div class="species-common">Nombre común: N/A</div></div></div>
+<div class="species-stat"><div class="species-label">Distribución registrada</div><div class="species-value">Brasil — Estuario del Río Pará y Caeté; Delta de Parnaíba</div></div>
+<div class="species-stat"><div class="species-label">Microplásticos</div><div><div class="species-tags"><span class="species-tag">Fibras, Fragmentos; Celulosa en gran cantidad; Azules y negras. Celulosa y PAN, PA y PP</span></div><div class="micro-note">Los resultados se muestran tal como aparecen asociados al artículo en la base; no se atribuyen a la especie de forma exclusiva cuando el artículo agrupa varias especies.</div></div></div>
+<div class="species-stat"><div class="species-label">Artículos encontrados</div><div class="article-list"><a class="article-link" href="base_datos_microplasticos.html#articulo-002"><strong>ART. 002</strong><span>Anthropogenic microparticles ingestion patterns in fish across trophic guilds in mangrove estuaries</span></a></div></div>
+</article><article class="species-card" data-common="n/a" data-name="mugil sp."><div class="species-image-placeholder"><div><strong>Imagen pendiente</strong>No se localizó una imagen con procedencia/licencia verificable durante esta búsqueda.</div></div>
+<div class="species-card-head"><div><div class="species-index">FICHA 12</div><h2 class="species-scientific"><em>Mugil sp.</em></h2><div class="species-common">Nombre común: N/A</div></div></div>
+<div class="species-stat"><div class="species-label">Distribución registrada</div><div class="species-value">Brasil — Estuario del Río Pará y Caeté; Delta de Parnaíba</div></div>
+<div class="species-stat"><div class="species-label">Microplásticos</div><div><div class="species-tags"><span class="species-tag">Fibras, Fragmentos; Celulosa en gran cantidad; Azules y negras. Celulosa y PAN, PA y PP</span></div><div class="micro-note">Los resultados se muestran tal como aparecen asociados al artículo en la base; no se atribuyen a la especie de forma exclusiva cuando el artículo agrupa varias especies.</div></div></div>
+<div class="species-stat"><div class="species-label">Artículos encontrados</div><div class="article-list"><a class="article-link" href="base_datos_microplasticos.html#articulo-002"><strong>ART. 002</strong><span>Anthropogenic microparticles ingestion patterns in fish across trophic guilds in mangrove estuaries</span></a></div></div>
+</article><article class="species-card" data-common="common snook" data-name="centropomus undecimalis"><figure class="species-image"><img alt="Centropomus undecimalis" decoding="async" loading="lazy" src="https://cc.sisal.unam.mx/ColeccionIctiologica/assets/Fotografias/Especies1/Centropomus_undecimalis.jpg"/><figcaption><a href="https://cc.sisal.unam.mx/ColeccionIctiologica/InformacionDetallada.php?idRegistroBiologico=UNAM-CIRR-368" rel="noopener noreferrer" target="_blank">Fuente: Colección Ictiológica UNAM</a><span class="copyright">© Colección Ictiológica UNAM / autor indicado en la ficha</span></figcaption></figure>
+<div class="species-card-head"><div><div class="species-index">FICHA 13</div><h2 class="species-scientific"><em>Centropomus undecimalis</em></h2><div class="species-common">Nombre común: Common snook</div></div></div>
+<div class="species-stat"><div class="species-label">Distribución registrada</div><div class="species-value">Brasil — Estuario del Río Pará y Caeté; Delta de Parnaíba; Colombia — The Rosario Islands</div></div>
+<div class="species-stat"><div class="species-label">Microplásticos</div><div><div class="species-tags"><span class="species-tag">Fibras, Fragmentos; Celulosa en gran cantidad; Azules y negras. Celulosa y PAN, PA y PP</span><span class="species-tag">Fragmentos, Fibras; No; Negro, Verde y Azul. Poliester, PE, PVC, PET</span></div><div class="micro-note">Los resultados se muestran tal como aparecen asociados al artículo en la base; no se atribuyen a la especie de forma exclusiva cuando el artículo agrupa varias especies.</div></div></div>
+<div class="species-stat"><div class="species-label">Artículos encontrados</div><div class="article-list"><a class="article-link" href="base_datos_microplasticos.html#articulo-002"><strong>ART. 002</strong><span>Anthropogenic microparticles ingestion patterns in fish across trophic guilds in mangrove estuaries</span></a><a class="article-link" href="base_datos_microplasticos.html#articulo-012"><strong>ART. 012</strong><span>Differential Presence of Microplastics and Mesoplastics in Coral Reef and Mangrove Fishes in Isla Grande, Colombia</span></a></div></div>
+</article><article class="species-card" data-common="n/a" data-name="diapterus auratus"><div class="species-image-placeholder"><div><strong>Imagen pendiente</strong>No se localizó una imagen con procedencia/licencia verificable durante esta búsqueda.</div></div>
+<div class="species-card-head"><div><div class="species-index">FICHA 14</div><h2 class="species-scientific"><em>Diapterus auratus</em></h2><div class="species-common">Nombre común: N/A</div></div></div>
+<div class="species-stat"><div class="species-label">Distribución registrada</div><div class="species-value">Brasil — Estuario del Río Pará y Caeté; Delta de Parnaíba</div></div>
+<div class="species-stat"><div class="species-label">Microplásticos</div><div><div class="species-tags"><span class="species-tag">Fibras, Fragmentos; Celulosa en gran cantidad; Azules y negras. Celulosa y PAN, PA y PP</span></div><div class="micro-note">Los resultados se muestran tal como aparecen asociados al artículo en la base; no se atribuyen a la especie de forma exclusiva cuando el artículo agrupa varias especies.</div></div></div>
+<div class="species-stat"><div class="species-label">Artículos encontrados</div><div class="article-list"><a class="article-link" href="base_datos_microplasticos.html#articulo-002"><strong>ART. 002</strong><span>Anthropogenic microparticles ingestion patterns in fish across trophic guilds in mangrove estuaries</span></a></div></div>
+</article><article class="species-card" data-common="n/a" data-name="genyatremus luteus"><figure class="species-image"><img alt="Genyatremus luteus" decoding="async" loading="lazy" src="https://3.bp.blogspot.com/-09y1dvB8RLk/T9pp-xOO-QI/AAAAAAAAA14/n_TFvaQGU9U/s1600/golosa.jpg"/><figcaption><a href="https://pescadepraiapioxii.blogspot.com/p/peixes.html" rel="noopener noreferrer" target="_blank">Fuente: Pesca de Praia Pio XII</a><span class="copyright">© autor/fuente original; uso sujeto a derechos</span></figcaption></figure>
+<div class="species-card-head"><div><div class="species-index">FICHA 15</div><h2 class="species-scientific"><em>Genyatremus luteus</em></h2><div class="species-common">Nombre común: N/A</div></div></div>
+<div class="species-stat"><div class="species-label">Distribución registrada</div><div class="species-value">Brasil — Estuario del Río Pará y Caeté; Delta de Parnaíba</div></div>
+<div class="species-stat"><div class="species-label">Microplásticos</div><div><div class="species-tags"><span class="species-tag">Fibras, Fragmentos; Celulosa en gran cantidad; Azules y negras. Celulosa y PAN, PA y PP</span></div><div class="micro-note">Los resultados se muestran tal como aparecen asociados al artículo en la base; no se atribuyen a la especie de forma exclusiva cuando el artículo agrupa varias especies.</div></div></div>
+<div class="species-stat"><div class="species-label">Artículos encontrados</div><div class="article-list"><a class="article-link" href="base_datos_microplasticos.html#articulo-002"><strong>ART. 002</strong><span>Anthropogenic microparticles ingestion patterns in fish across trophic guilds in mangrove estuaries</span></a></div></div>
+</article><article class="species-card" data-common="n/a" data-name="lutjanus jocu"><figure class="species-image"><img alt="Lutjanus jocu" decoding="async" loading="lazy" src="https://metadata.icmyl.unam.mx/bitstream/handle/20.500.12201/696/Lutjanus_jocu.jpg?isAllowed=y&amp;sequence=1"/><figcaption><a href="https://metadata.icmyl.unam.mx/handle/20.500.12201/696" rel="noopener noreferrer" target="_blank">Fuente: UNAM · Colección Ictiológica</a><span class="copyright">© Felipe Amezcua Linares / UNAM; licencia indicada como Atribución-NoComercial</span></figcaption></figure>
+<div class="species-card-head"><div><div class="species-index">FICHA 16</div><h2 class="species-scientific"><em>Lutjanus jocu</em></h2><div class="species-common">Nombre común: N/A</div></div></div>
+<div class="species-stat"><div class="species-label">Distribución registrada</div><div class="species-value">Brasil — Estuario del Río Pará y Caeté; Delta de Parnaíba</div></div>
+<div class="species-stat"><div class="species-label">Microplásticos</div><div><div class="species-tags"><span class="species-tag">Fibras, Fragmentos; Celulosa en gran cantidad; Azules y negras. Celulosa y PAN, PA y PP</span></div><div class="micro-note">Los resultados se muestran tal como aparecen asociados al artículo en la base; no se atribuyen a la especie de forma exclusiva cuando el artículo agrupa varias especies.</div></div></div>
+<div class="species-stat"><div class="species-label">Artículos encontrados</div><div class="article-list"><a class="article-link" href="base_datos_microplasticos.html#articulo-002"><strong>ART. 002</strong><span>Anthropogenic microparticles ingestion patterns in fish across trophic guilds in mangrove estuaries</span></a></div></div>
+</article><article class="species-card" data-common="n/a" data-name="cynoscion acoupa"><figure class="species-image"><img alt="Cynoscion acoupa" decoding="async" loading="lazy" src="https://fishy-af.com/cdn/shop/articles/cachema-weakfish__cachema-weakfish__cynoscion-phoxocephalus_8f0c3ad4-5f54-48ff-b4f5-d916c5589699.png?v=1776465104&amp;width=700"/><figcaption><a href="https://fishy-af.com/blogs/species-guide/acoupa-weakfish" rel="noopener noreferrer" target="_blank">Fuente: FishyAF</a><span class="copyright">© derechos de la fuente/autor según la fuente</span></figcaption></figure>
+<div class="species-card-head"><div><div class="species-index">FICHA 17</div><h2 class="species-scientific"><em>Cynoscion acoupa</em></h2><div class="species-common">Nombre común: N/A</div></div></div>
+<div class="species-stat"><div class="species-label">Distribución registrada</div><div class="species-value">Brasil — Estuario del Río Pará y Caeté; Delta de Parnaíba</div></div>
+<div class="species-stat"><div class="species-label">Microplásticos</div><div><div class="species-tags"><span class="species-tag">Fibras, Fragmentos; Celulosa en gran cantidad; Azules y negras. Celulosa y PAN, PA y PP</span></div><div class="micro-note">Los resultados se muestran tal como aparecen asociados al artículo en la base; no se atribuyen a la especie de forma exclusiva cuando el artículo agrupa varias especies.</div></div></div>
+<div class="species-stat"><div class="species-label">Artículos encontrados</div><div class="article-list"><a class="article-link" href="base_datos_microplasticos.html#articulo-002"><strong>ART. 002</strong><span>Anthropogenic microparticles ingestion patterns in fish across trophic guilds in mangrove estuaries</span></a></div></div>
+</article><article class="species-card" data-common="n/a" data-name="macrodon ancylodon"><figure class="species-image"><img alt="Macrodon ancylodon" decoding="async" loading="lazy" src="https://inaturalist-open-data.s3.amazonaws.com/photos/109046999/large.jpg"/><figcaption><a href="https://www.inaturalist.org/taxa/620343-Macrodon-ancylodon" rel="noopener noreferrer" target="_blank">Fuente: iNaturalist</a><span class="copyright">© autor de la observación; licencia según el registro</span></figcaption></figure>
+<div class="species-card-head"><div><div class="species-index">FICHA 18</div><h2 class="species-scientific"><em>Macrodon ancylodon</em></h2><div class="species-common">Nombre común: N/A</div></div></div>
+<div class="species-stat"><div class="species-label">Distribución registrada</div><div class="species-value">Brasil — Estuario del Río Pará y Caeté; Delta de Parnaíba</div></div>
+<div class="species-stat"><div class="species-label">Microplásticos</div><div><div class="species-tags"><span class="species-tag">Fibras, Fragmentos; Celulosa en gran cantidad; Azules y negras. Celulosa y PAN, PA y PP</span></div><div class="micro-note">Los resultados se muestran tal como aparecen asociados al artículo en la base; no se atribuyen a la especie de forma exclusiva cuando el artículo agrupa varias especies.</div></div></div>
+<div class="species-stat"><div class="species-label">Artículos encontrados</div><div class="article-list"><a class="article-link" href="base_datos_microplasticos.html#articulo-002"><strong>ART. 002</strong><span>Anthropogenic microparticles ingestion patterns in fish across trophic guilds in mangrove estuaries</span></a></div></div>
+</article><article class="species-card" data-common="n/a" data-name="stellifer naso"><div class="species-image-placeholder"><div><strong>Imagen pendiente</strong>No se localizó una imagen con procedencia/licencia verificable durante esta búsqueda.</div></div>
+<div class="species-card-head"><div><div class="species-index">FICHA 19</div><h2 class="species-scientific"><em>Stellifer naso</em></h2><div class="species-common">Nombre común: N/A</div></div></div>
+<div class="species-stat"><div class="species-label">Distribución registrada</div><div class="species-value">Brasil — Estuario del Río Pará y Caeté; Delta de Parnaíba</div></div>
+<div class="species-stat"><div class="species-label">Microplásticos</div><div><div class="species-tags"><span class="species-tag">Fibras, Fragmentos; Celulosa en gran cantidad; Azules y negras. Celulosa y PAN, PA y PP</span></div><div class="micro-note">Los resultados se muestran tal como aparecen asociados al artículo en la base; no se atribuyen a la especie de forma exclusiva cuando el artículo agrupa varias especies.</div></div></div>
+<div class="species-stat"><div class="species-label">Artículos encontrados</div><div class="article-list"><a class="article-link" href="base_datos_microplasticos.html#articulo-002"><strong>ART. 002</strong><span>Anthropogenic microparticles ingestion patterns in fish across trophic guilds in mangrove estuaries</span></a></div></div>
+</article><article class="species-card" data-common="n/a" data-name="achirus"><figure class="species-image"><img alt="Achirus" decoding="async" loading="lazy" src="https://s3.animalia.bio/animals/photos/full/original/lined-sole.webp"/><figcaption><a href="https://animalia.bio/achirus-lineatus" rel="noopener noreferrer" target="_blank">Fuente: Animalia.bio</a><span class="copyright">© derechos del autor/fuente según las condiciones de uso de Animalia.bio; la base registra el género Achirus</span></figcaption></figure>
+<div class="species-card-head"><div><div class="species-index">FICHA 20</div><h2 class="species-scientific"><em>Achirus</em></h2><div class="species-common">Nombre común: N/A</div></div></div>
+<div class="species-stat"><div class="species-label">Distribución registrada</div><div class="species-value">Brasil — Estuario del Río Pará y Caeté; Delta de Parnaíba; Brasil</div></div>
+<div class="species-stat"><div class="species-label">Microplásticos</div><div><div class="species-tags"><span class="species-tag">Fibras, Fragmentos; Celulosa en gran cantidad; Azules y negras. Celulosa y PAN, PA y PP</span></div><div class="micro-note">Los resultados se muestran tal como aparecen asociados al artículo en la base; no se atribuyen a la especie de forma exclusiva cuando el artículo agrupa varias especies.</div></div></div>
+<div class="species-stat"><div class="species-label">Artículos encontrados</div><div class="article-list"><a class="article-link" href="base_datos_microplasticos.html#articulo-002"><strong>ART. 002</strong><span>Anthropogenic microparticles ingestion patterns in fish across trophic guilds in mangrove estuaries</span></a><a class="article-link" href="base_datos_microplasticos.html#articulo-003"><strong>ART. 003</strong><span>Áreas marinhas protegidas sob ameaça de microplásticos: Uma abordagem multi-escalar</span></a></div></div>
+</article><article class="species-card" data-common="n/a" data-name="cathorops spixii"><div class="species-image-placeholder"><div><strong>Imagen pendiente</strong>No se localizó una imagen con procedencia/licencia verificable durante esta búsqueda.</div></div>
+<div class="species-card-head"><div><div class="species-index">FICHA 21</div><h2 class="species-scientific"><em>Cathorops spixii</em></h2><div class="species-common">Nombre común: N/A</div></div></div>
+<div class="species-stat"><div class="species-label">Distribución registrada</div><div class="species-value">Brasil</div></div>
+<div class="species-stat"><div class="species-label">Microplásticos</div><div><div class="species-tags"><span class="species-value">N/A en los registros asociados</span></div><div class="micro-note">Los resultados se muestran tal como aparecen asociados al artículo en la base; no se atribuyen a la especie de forma exclusiva cuando el artículo agrupa varias especies.</div></div></div>
+<div class="species-stat"><div class="species-label">Artículos encontrados</div><div class="article-list"><a class="article-link" href="base_datos_microplasticos.html#articulo-003"><strong>ART. 003</strong><span>Áreas marinhas protegidas sob ameaça de microplásticos: Uma abordagem multi-escalar</span></a></div></div>
+</article><article class="species-card" data-common="n/a" data-name="sciades herzbergii"><div class="species-image-placeholder"><div><strong>Imagen pendiente</strong>No se localizó una imagen con procedencia/licencia verificable durante esta búsqueda.</div></div>
+<div class="species-card-head"><div><div class="species-index">FICHA 22</div><h2 class="species-scientific"><em>Sciades herzbergii</em></h2><div class="species-common">Nombre común: N/A</div></div></div>
+<div class="species-stat"><div class="species-label">Distribución registrada</div><div class="species-value">Brasil</div></div>
+<div class="species-stat"><div class="species-label">Microplásticos</div><div><div class="species-tags"><span class="species-value">N/A en los registros asociados</span></div><div class="micro-note">Los resultados se muestran tal como aparecen asociados al artículo en la base; no se atribuyen a la especie de forma exclusiva cuando el artículo agrupa varias especies.</div></div></div>
+<div class="species-stat"><div class="species-label">Artículos encontrados</div><div class="article-list"><a class="article-link" href="base_datos_microplasticos.html#articulo-003"><strong>ART. 003</strong><span>Áreas marinhas protegidas sob ameaça de microplásticos: Uma abordagem multi-escalar</span></a></div></div>
+</article><article class="species-card" data-common="n/a" data-name="sphoeroides psittacus"><div class="species-image-placeholder"><div><strong>Imagen pendiente</strong>No se localizó una imagen con procedencia/licencia verificable durante esta búsqueda.</div></div>
+<div class="species-card-head"><div><div class="species-index">FICHA 23</div><h2 class="species-scientific"><em>Sphoeroides psittacus</em></h2><div class="species-common">Nombre común: N/A</div></div></div>
+<div class="species-stat"><div class="species-label">Distribución registrada</div><div class="species-value">Brasil</div></div>
+<div class="species-stat"><div class="species-label">Microplásticos</div><div><div class="species-tags"><span class="species-value">N/A en los registros asociados</span></div><div class="micro-note">Los resultados se muestran tal como aparecen asociados al artículo en la base; no se atribuyen a la especie de forma exclusiva cuando el artículo agrupa varias especies.</div></div></div>
+<div class="species-stat"><div class="species-label">Artículos encontrados</div><div class="article-list"><a class="article-link" href="base_datos_microplasticos.html#articulo-003"><strong>ART. 003</strong><span>Áreas marinhas protegidas sob ameaça de microplásticos: Uma abordagem multi-escalar</span></a></div></div>
+</article><article class="species-card" data-common="n/a" data-name="micropogonias furnieri"><figure class="species-image"><img alt="Micropogonias furnieri" decoding="async" loading="lazy" src="https://metadata.icmyl.unam.mx/bitstream/handle/20.500.12201/711/Micropogonias_furnieri.jpg?isAllowed=y&amp;sequence=1"/><figcaption><a href="https://metadata.icmyl.unam.mx/handle/20.500.12201/711" rel="noopener noreferrer" target="_blank">Fuente: UNAM · Colección Ictiológica</a><span class="copyright">© Felipe Amezcua Linares / UNAM; licencia indicada como Atribución-NoComercial</span></figcaption></figure>
+<div class="species-card-head"><div><div class="species-index">FICHA 24</div><h2 class="species-scientific"><em>Micropogonias furnieri</em></h2><div class="species-common">Nombre común: N/A</div></div></div>
+<div class="species-stat"><div class="species-label">Distribución registrada</div><div class="species-value">Brasil — Bahía de Guanabara</div></div>
+<div class="species-stat"><div class="species-label">Microplásticos</div><div><div class="species-tags"><span class="species-tag">Fibras con 98%; No reportad; Translucidas, azules. Poliester y polietileno</span></div><div class="micro-note">Los resultados se muestran tal como aparecen asociados al artículo en la base; no se atribuyen a la especie de forma exclusiva cuando el artículo agrupa varias especies.</div></div></div>
+<div class="species-stat"><div class="species-label">Artículos encontrados</div><div class="article-list"><a class="article-link" href="base_datos_microplasticos.html#articulo-004"><strong>ART. 004</strong><span>Assessment of microplastic impacts on whitemouth croaker (Micropogonias furnieri) and ecosystem services in Guanabara Bay, Brasil</span></a></div></div>
+</article><article class="species-card" data-common="n/a" data-name="deuterodon langei"><figure class="species-image"><img alt="Deuterodon langei" decoding="async" loading="lazy" src="https://www.fishbase.se/images/species/Delan_m0.jpg"/><figcaption><a href="https://www.fishbase.se/summary/Deuterodon-langei" rel="noopener noreferrer" target="_blank">Fuente: FishBase</a><span class="copyright">© fotógrafo/institución según la ficha de imagen; consultar condiciones de uso</span></figcaption></figure>
+<div class="species-card-head"><div><div class="species-index">FICHA 25</div><h2 class="species-scientific"><em>Deuterodon langei</em></h2><div class="species-common">Nombre común: N/A</div></div></div>
+<div class="species-stat"><div class="species-label">Distribución registrada</div><div class="species-value">Brasil — Cuenca costera del estado de Paraná. Guaraguaçu River Hydrographic Basin</div></div>
+<div class="species-stat"><div class="species-label">Microplásticos</div><div><div class="species-tags"><span class="species-tag">Fibras; No; acrílico, poliéster (PES), polipropileno (PP) y poliuretano (PU)</span></div><div class="micro-note">Los resultados se muestran tal como aparecen asociados al artículo en la base; no se atribuyen a la especie de forma exclusiva cuando el artículo agrupa varias especies.</div></div></div>
+<div class="species-stat"><div class="species-label">Artículos encontrados</div><div class="article-list"><a class="article-link" href="base_datos_microplasticos.html#articulo-006"><strong>ART. 006</strong><span>Biochemical responses and ingestion of microplastics by native fishes in the Atlantic Forest, southern Brasil</span></a></div></div>
+</article><article class="species-card" data-common="n/a" data-name="geophagus iporangensis"><figure class="species-image"><img alt="Geophagus iporangensis" decoding="async" loading="lazy" src="https://www.fishbase.se/images/species/Geipo_m0.jpg"/><figcaption><a href="https://www.fishbase.se/Fieldguide/FieldGuideSummary.php?c_code=076&amp;genusname=Geophagus&amp;speciesname=iporangensis" rel="noopener noreferrer" target="_blank">Fuente: FishBase</a><span class="copyright">© JJPhoto / FishBase; consultar condiciones de uso</span></figcaption></figure>
+<div class="species-card-head"><div><div class="species-index">FICHA 26</div><h2 class="species-scientific"><em>Geophagus iporangensis</em></h2><div class="species-common">Nombre común: N/A</div></div></div>
+<div class="species-stat"><div class="species-label">Distribución registrada</div><div class="species-value">Brasil — Cuenca costera del estado de Paraná. Guaraguaçu River Hydrographic Basin</div></div>
+<div class="species-stat"><div class="species-label">Microplásticos</div><div><div class="species-tags"><span class="species-tag">Fibras; No; acrílico, poliéster (PES), polipropileno (PP) y poliuretano (PU)</span></div><div class="micro-note">Los resultados se muestran tal como aparecen asociados al artículo en la base; no se atribuyen a la especie de forma exclusiva cuando el artículo agrupa varias especies.</div></div></div>
+<div class="species-stat"><div class="species-label">Artículos encontrados</div><div class="article-list"><a class="article-link" href="base_datos_microplasticos.html#articulo-006"><strong>ART. 006</strong><span>Biochemical responses and ingestion of microplastics by native fishes in the Atlantic Forest, southern Brasil</span></a></div></div>
+</article><article class="species-card" data-common="n/a" data-name="hemigrammus unilineatus"><figure class="species-image"><img alt="Hemigrammus unilineatus" decoding="async" loading="lazy" src="https://sima-app.net/mi-pez/sites/default/files/2023-04/088.png"/><figcaption><a href="https://sima-app.net/mi-pez/especies" rel="noopener noreferrer" target="_blank">Fuente: SIMA / CIACOL</a><span class="copyright">© A. Acosta-Santos / institución indicada en la imagen</span></figcaption></figure>
+<div class="species-card-head"><div><div class="species-index">FICHA 27</div><h2 class="species-scientific"><em>Hemigrammus unilineatus</em></h2><div class="species-common">Nombre común: N/A</div></div></div>
+<div class="species-stat"><div class="species-label">Distribución registrada</div><div class="species-value">Brasil — Río Guamá, en el municipio de Barcarena, y en la cuenca Acará-Capim, en los municipios de Ipixuna do Pará, Concórdia do Pará y Tomé Açu</div></div>
+<div class="species-stat"><div class="species-label">Microplásticos</div><div><div class="species-tags"><span class="species-tag">Fibras, Fragmentos; No; No mencionados</span></div><div class="micro-note">Los resultados se muestran tal como aparecen asociados al artículo en la base; no se atribuyen a la especie de forma exclusiva cuando el artículo agrupa varias especies.</div></div></div>
+<div class="species-stat"><div class="species-label">Artículos encontrados</div><div class="article-list"><a class="article-link" href="base_datos_microplasticos.html#articulo-010"><strong>ART. 010</strong><span>Contamination of stream fish by plastic waste in the Brasilian Amazon</span></a></div></div>
+</article><article class="species-card" data-common="n/a" data-name="bryconops melanurus"><div class="species-image-placeholder"><div><strong>Imagen pendiente</strong>No se localizó una imagen con procedencia/licencia verificable durante esta búsqueda.</div></div>
+<div class="species-card-head"><div><div class="species-index">FICHA 28</div><h2 class="species-scientific"><em>Bryconops melanurus</em></h2><div class="species-common">Nombre común: N/A</div></div></div>
+<div class="species-stat"><div class="species-label">Distribución registrada</div><div class="species-value">Brasil — Río Guamá, en el municipio de Barcarena, y en la cuenca Acará-Capim, en los municipios de Ipixuna do Pará, Concórdia do Pará y Tomé Açu</div></div>
+<div class="species-stat"><div class="species-label">Microplásticos</div><div><div class="species-tags"><span class="species-tag">Fibras, Fragmentos; No; No mencionados</span></div><div class="micro-note">Los resultados se muestran tal como aparecen asociados al artículo en la base; no se atribuyen a la especie de forma exclusiva cuando el artículo agrupa varias especies.</div></div></div>
+<div class="species-stat"><div class="species-label">Artículos encontrados</div><div class="article-list"><a class="article-link" href="base_datos_microplasticos.html#articulo-010"><strong>ART. 010</strong><span>Contamination of stream fish by plastic waste in the Brasilian Amazon</span></a></div></div>
+</article><article class="species-card" data-common="n/a" data-name="iguanodectes rachovii"><div class="species-image-placeholder"><div><strong>Imagen pendiente</strong>No se localizó una imagen con procedencia/licencia verificable durante esta búsqueda.</div></div>
+<div class="species-card-head"><div><div class="species-index">FICHA 29</div><h2 class="species-scientific"><em>Iguanodectes rachovii</em></h2><div class="species-common">Nombre común: N/A</div></div></div>
+<div class="species-stat"><div class="species-label">Distribución registrada</div><div class="species-value">Brasil — Río Guamá, en el municipio de Barcarena, y en la cuenca Acará-Capim, en los municipios de Ipixuna do Pará, Concórdia do Pará y Tomé Açu; Argentina</div></div>
+<div class="species-stat"><div class="species-label">Microplásticos</div><div><div class="species-tags"><span class="species-tag">Fibras, Fragmentos; No; No mencionados</span></div><div class="micro-note">Los resultados se muestran tal como aparecen asociados al artículo en la base; no se atribuyen a la especie de forma exclusiva cuando el artículo agrupa varias especies.</div></div></div>
+<div class="species-stat"><div class="species-label">Artículos encontrados</div><div class="article-list"><a class="article-link" href="base_datos_microplasticos.html#articulo-010"><strong>ART. 010</strong><span>Contamination of stream fish by plastic waste in the Brasilian Amazon</span></a><a class="article-link" href="base_datos_microplasticos.html#articulo-014"><strong>ART. 014</strong><span>Effects of microplastic ingestion on feeding activity in a widespread fish on the southwestern Atlantic coast: Ramnogaster arcuata (Clupeidae)</span></a></div></div>
+</article><article class="species-card" data-common="n/a" data-name="hoplias malabaricus"><figure class="species-image"><img alt="Hoplias malabaricus" decoding="async" loading="lazy" src="https://s3.animalia.bio/animals/photos/medium/original/erythrinidae-hoplias-malabaricus-5807045534.webp?id=713e087731dade8f03a5ae15457e75c1"/><figcaption><a href="https://animalia.bio/hoplias-malabaricus" rel="noopener noreferrer" target="_blank">Fuente: Animalia.bio</a><span class="copyright">© derechos del autor/fuente según las condiciones de uso de Animalia.bio</span></figcaption></figure>
+<div class="species-card-head"><div><div class="species-index">FICHA 30</div><h2 class="species-scientific"><em>Hoplias malabaricus</em></h2><div class="species-common">Nombre común: N/A</div></div></div>
+<div class="species-stat"><div class="species-label">Distribución registrada</div><div class="species-value">Brasil — Río Guamá, en el municipio de Barcarena, y en la cuenca Acará-Capim, en los municipios de Ipixuna do Pará, Concórdia do Pará y Tomé Açu; Brasil</div></div>
+<div class="species-stat"><div class="species-label">Microplásticos</div><div><div class="species-tags"><span class="species-tag">Fibras, Fragmentos; No; No mencionados</span></div><div class="micro-note">Los resultados se muestran tal como aparecen asociados al artículo en la base; no se atribuyen a la especie de forma exclusiva cuando el artículo agrupa varias especies.</div></div></div>
+<div class="species-stat"><div class="species-label">Artículos encontrados</div><div class="article-list"><a class="article-link" href="base_datos_microplasticos.html#articulo-010"><strong>ART. 010</strong><span>Contamination of stream fish by plastic waste in the Brasilian Amazon</span></a><a class="article-link" href="base_datos_microplasticos.html#articulo-016"><strong>ART. 016</strong><span>Environmental challenges in Southern Brasil: impacts of pollution and extreme weather events on biodiversity and human health</span></a></div></div>
+</article><article class="species-card" data-common="n/a" data-name="carnegiella strigata"><figure class="species-image"><img alt="Carnegiella strigata" decoding="async" loading="lazy" src="https://aquarium-pro.com/images/carnegiella-strigata/01.jpg"/><figcaption><a href="https://aquarium-pro.com/species/marbled-hatchetfish" rel="noopener noreferrer" target="_blank">Fuente: Aquariumpro</a><span class="copyright">© Aquariumpro / autor indicado en la imagen</span></figcaption></figure>
+<div class="species-card-head"><div><div class="species-index">FICHA 31</div><h2 class="species-scientific"><em>Carnegiella strigata</em></h2><div class="species-common">Nombre común: N/A</div></div></div>
+<div class="species-stat"><div class="species-label">Distribución registrada</div><div class="species-value">Brasil — Río Guamá, en el municipio de Barcarena, y en la cuenca Acará-Capim, en los municipios de Ipixuna do Pará, Concórdia do Pará y Tomé Açu; Perú — Region Loreto, rio Nanay</div></div>
+<div class="species-stat"><div class="species-label">Microplásticos</div><div><div class="species-tags"><span class="species-tag">Fibras, Fragmentos; No; No mencionados</span></div><div class="micro-note">Los resultados se muestran tal como aparecen asociados al artículo en la base; no se atribuyen a la especie de forma exclusiva cuando el artículo agrupa varias especies.</div></div></div>
+<div class="species-stat"><div class="species-label">Artículos encontrados</div><div class="article-list"><a class="article-link" href="base_datos_microplasticos.html#articulo-010"><strong>ART. 010</strong><span>Contamination of stream fish by plastic waste in the Brasilian Amazon</span></a><a class="article-link" href="base_datos_microplasticos.html#articulo-018"><strong>ART. 018</strong><span>Evaluación de la contaminación por plásticos en playas del río Nanay, región Loreto-2021</span></a></div></div>
+</article><article class="species-card" data-common="n/a" data-name="copella arnoldi"><div class="species-image-placeholder"><div><strong>Imagen pendiente</strong>No se localizó una imagen con procedencia/licencia verificable durante esta búsqueda.</div></div>
+<div class="species-card-head"><div><div class="species-index">FICHA 32</div><h2 class="species-scientific"><em>Copella arnoldi</em></h2><div class="species-common">Nombre común: N/A</div></div></div>
+<div class="species-stat"><div class="species-label">Distribución registrada</div><div class="species-value">Brasil — Río Guamá, en el municipio de Barcarena, y en la cuenca Acará-Capim, en los municipios de Ipixuna do Pará, Concórdia do Pará y Tomé Açu; Bolivia</div></div>
+<div class="species-stat"><div class="species-label">Microplásticos</div><div><div class="species-tags"><span class="species-tag">Fibras, Fragmentos; No; No mencionados</span></div><div class="micro-note">Los resultados se muestran tal como aparecen asociados al artículo en la base; no se atribuyen a la especie de forma exclusiva cuando el artículo agrupa varias especies.</div></div></div>
+<div class="species-stat"><div class="species-label">Artículos encontrados</div><div class="article-list"><a class="article-link" href="base_datos_microplasticos.html#articulo-010"><strong>ART. 010</strong><span>Contamination of stream fish by plastic waste in the Brasilian Amazon</span></a><a class="article-link" href="base_datos_microplasticos.html#articulo-020"><strong>ART. 020</strong><span>Evidence of microplastics in water and commercial fish from a high- altitude mountain lake (Lake Titicaca)</span></a></div></div>
+</article><article class="species-card" data-common="n/a" data-name="aequidens tetramerus"><figure class="species-image"><img alt="Aequidens tetramerus" decoding="async" loading="lazy" src="https://www.biotopfish.com/sites/default/files/styles/fullscreen/public/image/cards/aequidens_tetramerus.jpg?itok=lgV4oD2S"/><figcaption><a href="https://biotopfish.com/species/aequidens-tetramerus-akara-tetramerus" rel="noopener noreferrer" target="_blank">Fuente: Biotopfish</a><span class="copyright">© derechos de la fuente/autor según la fuente</span></figcaption></figure>
+<div class="species-card-head"><div><div class="species-index">FICHA 33</div><h2 class="species-scientific"><em>Aequidens tetramerus</em></h2><div class="species-common">Nombre común: N/A</div></div></div>
+<div class="species-stat"><div class="species-label">Distribución registrada</div><div class="species-value">Brasil — Río Guamá, en el municipio de Barcarena, y en la cuenca Acará-Capim, en los municipios de Ipixuna do Pará, Concórdia do Pará y Tomé Açu</div></div>
+<div class="species-stat"><div class="species-label">Microplásticos</div><div><div class="species-tags"><span class="species-tag">Fibras, Fragmentos; No; No mencionados</span></div><div class="micro-note">Los resultados se muestran tal como aparecen asociados al artículo en la base; no se atribuyen a la especie de forma exclusiva cuando el artículo agrupa varias especies.</div></div></div>
+<div class="species-stat"><div class="species-label">Artículos encontrados</div><div class="article-list"><a class="article-link" href="base_datos_microplasticos.html#articulo-010"><strong>ART. 010</strong><span>Contamination of stream fish by plastic waste in the Brasilian Amazon</span></a><a class="article-link" href="base_datos_microplasticos.html#articulo-022"><strong>ART. 022</strong><span>Experimental evaluation of microplastic consumption by using a size- fractionation approach in the planktonic communities</span></a></div></div>
+</article><article class="species-card" data-common="n/a" data-name="crenicichla regani"><figure class="species-image"><img alt="Crenicichla regani" decoding="async" loading="lazy" src="https://www.swelluk.com/media/catalog/product/r/e/regani-pike-cichlid-crenicichla-regani-tapajos_iajmsznmytsedqoq.png?height=810&amp;image-type=image&amp;store=default&amp;width=810"/><figcaption><a href="https://www.swelluk.com/regans-pike-cichlid-crenicichla-regani-tapajos" rel="noopener noreferrer" target="_blank">Fuente: Swell UK</a><span class="copyright">© derechos de la fuente/autor; imagen comercial</span></figcaption></figure>
+<div class="species-card-head"><div><div class="species-index">FICHA 34</div><h2 class="species-scientific"><em>Crenicichla regani</em></h2><div class="species-common">Nombre común: N/A</div></div></div>
+<div class="species-stat"><div class="species-label">Distribución registrada</div><div class="species-value">Brasil — Río Guamá, en el municipio de Barcarena, y en la cuenca Acará-Capim, en los municipios de Ipixuna do Pará, Concórdia do Pará y Tomé Açu; Brasil</div></div>
+<div class="species-stat"><div class="species-label">Microplásticos</div><div><div class="species-tags"><span class="species-tag">Fibras, Fragmentos; No; No mencionados</span></div><div class="micro-note">Los resultados se muestran tal como aparecen asociados al artículo en la base; no se atribuyen a la especie de forma exclusiva cuando el artículo agrupa varias especies.</div></div></div>
+<div class="species-stat"><div class="species-label">Artículos encontrados</div><div class="article-list"><a class="article-link" href="base_datos_microplasticos.html#articulo-010"><strong>ART. 010</strong><span>Contamination of stream fish by plastic waste in the Brasilian Amazon</span></a><a class="article-link" href="base_datos_microplasticos.html#articulo-024"><strong>ART. 024</strong><span>First Evidence of High Microplastic Concentrations in Estuarine Litter Windrows of a World Heritage Site: The Paranaguá Estuarine Complex, Brasil</span></a></div></div>
+</article><article class="species-card" data-common="n/a" data-name="nannacara taenia"><figure class="species-image"><img alt="Nannacara taenia" decoding="async" loading="lazy" src="https://www.aquadesigner-shop.com/11694-mt_medium/nannacara-taenia.jpg"/><figcaption><a href="https://www.aquadesigner-shop.com/poissons/3625-nannacara-taenia.html" rel="noopener noreferrer" target="_blank">Fuente: AQUADESIGNER</a><span class="copyright">© derechos de la fuente/autor; imagen comercial</span></figcaption></figure>
+<div class="species-card-head"><div><div class="species-index">FICHA 35</div><h2 class="species-scientific"><em>Nannacara taenia</em></h2><div class="species-common">Nombre común: N/A</div></div></div>
+<div class="species-stat"><div class="species-label">Distribución registrada</div><div class="species-value">Brasil — Río Guamá, en el municipio de Barcarena, y en la cuenca Acará-Capim, en los municipios de Ipixuna do Pará, Concórdia do Pará y Tomé Açu; Brasil — Granjas de cachama en Rondonia state</div></div>
+<div class="species-stat"><div class="species-label">Microplásticos</div><div><div class="species-tags"><span class="species-tag">Fibras, Fragmentos; No; No mencionados</span></div><div class="micro-note">Los resultados se muestran tal como aparecen asociados al artículo en la base; no se atribuyen a la especie de forma exclusiva cuando el artículo agrupa varias especies.</div></div></div>
+<div class="species-stat"><div class="species-label">Artículos encontrados</div><div class="article-list"><a class="article-link" href="base_datos_microplasticos.html#articulo-010"><strong>ART. 010</strong><span>Contamination of stream fish by plastic waste in the Brasilian Amazon</span></a><a class="article-link" href="base_datos_microplasticos.html#articulo-026"><strong>ART. 026</strong><span>First evidence of microplastics in freshwater from fish farms in Rondônia state, Brasil</span></a></div></div>
+</article><article class="species-card" data-common="n/a" data-name="laimosemion strigatus"><div class="species-image-placeholder"><div><strong>Imagen pendiente</strong>No se localizó una imagen con procedencia/licencia verificable durante esta búsqueda.</div></div>
+<div class="species-card-head"><div><div class="species-index">FICHA 36</div><h2 class="species-scientific"><em>Laimosemion strigatus</em></h2><div class="species-common">Nombre común: N/A</div></div></div>
+<div class="species-stat"><div class="species-label">Distribución registrada</div><div class="species-value">Perú; Brasil — Uruguay River</div></div>
+<div class="species-stat"><div class="species-label">Microplásticos</div><div><div class="species-tags"><span class="species-value">N/A en los registros asociados</span></div><div class="micro-note">Los resultados se muestran tal como aparecen asociados al artículo en la base; no se atribuyen a la especie de forma exclusiva cuando el artículo agrupa varias especies.</div></div></div>
+<div class="species-stat"><div class="species-label">Artículos encontrados</div><div class="article-list"><a class="article-link" href="base_datos_microplasticos.html#articulo-011"><strong>ART. 011</strong><span>Determinación de microplásticos en Carachi (Orestias luteus) e Ispi (Orestias ispi) comercializados en los principales mercados de la ciudad de Juliaca-2022</span></a><a class="article-link" href="base_datos_microplasticos.html#articulo-028"><strong>ART. 028</strong><span>First record of microplastics in two freshwater fish species (Iheringhthys labrosus and Astyanax lacustris) from the middle section of the Uruguay River, Brasil| Primeiro registro de microplástico em duas espécies de peixe (Iheringhthys labrosus e Astyanax lacustris) num trecho do médio Rio Uruguai, Brasil</span></a></div></div>
+</article><article class="species-card" data-common="n/a" data-name="polycentrus schomburgkii"><figure class="species-image"><img alt="Polycentrus schomburgkii" decoding="async" loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Polycentrus%20schomburgkii.jpg"/><figcaption><a href="https://commons.wikimedia.org/wiki/Category:Polycentrus_schomburgkii" rel="noopener noreferrer" target="_blank">Fuente: Wikimedia Commons</a><span class="copyright">Licencia y autoría: consultar la ficha del archivo en Wikimedia Commons</span></figcaption></figure>
+<div class="species-card-head"><div><div class="species-index">FICHA 37</div><h2 class="species-scientific"><em>Polycentrus schomburgkii</em></h2><div class="species-common">Nombre común: N/A</div></div></div>
+<div class="species-stat"><div class="species-label">Distribución registrada</div><div class="species-value">Perú; Perú — Huachana lake</div></div>
+<div class="species-stat"><div class="species-label">Microplásticos</div><div><div class="species-tags"><span class="species-value">N/A en los registros asociados</span></div><div class="micro-note">Los resultados se muestran tal como aparecen asociados al artículo en la base; no se atribuyen a la especie de forma exclusiva cuando el artículo agrupa varias especies.</div></div></div>
+<div class="species-stat"><div class="species-label">Artículos encontrados</div><div class="article-list"><a class="article-link" href="base_datos_microplasticos.html#articulo-011"><strong>ART. 011</strong><span>Determinación de microplásticos en Carachi (Orestias luteus) e Ispi (Orestias ispi) comercializados en los principales mercados de la ciudad de Juliaca-2022</span></a><a class="article-link" href="base_datos_microplasticos.html#articulo-030"><strong>ART. 030</strong><span>Fishes at risk: unveiling the hidden diversity of a vulnerable lake in the Perúvian Amazon region</span></a></div></div>
+</article><article class="species-card" data-common="n/a" data-name="megalechis thoracata"><div class="species-image-placeholder"><div><strong>Imagen pendiente</strong>No se localizó una imagen con procedencia/licencia verificable durante esta búsqueda.</div></div>
+<div class="species-card-head"><div><div class="species-index">FICHA 38</div><h2 class="species-scientific"><em>Megalechis thoracata</em></h2><div class="species-common">Nombre común: N/A</div></div></div>
+<div class="species-stat"><div class="species-label">Distribución registrada</div><div class="species-value">Perú; Mundial — Review</div></div>
+<div class="species-stat"><div class="species-label">Microplásticos</div><div><div class="species-tags"><span class="species-value">N/A en los registros asociados</span></div><div class="micro-note">Los resultados se muestran tal como aparecen asociados al artículo en la base; no se atribuyen a la especie de forma exclusiva cuando el artículo agrupa varias especies.</div></div></div>
+<div class="species-stat"><div class="species-label">Artículos encontrados</div><div class="article-list"><a class="article-link" href="base_datos_microplasticos.html#articulo-011"><strong>ART. 011</strong><span>Determinación de microplásticos en Carachi (Orestias luteus) e Ispi (Orestias ispi) comercializados en los principales mercados de la ciudad de Juliaca-2022</span></a><a class="article-link" href="base_datos_microplasticos.html#articulo-032"><strong>ART. 032</strong><span>From Protection to Pollution: The Impact of Mask Use on Micro (nano) plastic Release</span></a></div></div>
+</article><article class="species-card" data-common="n/a" data-name="mastiglanis cf. asopos"><div class="species-image-placeholder"><div><strong>Imagen pendiente</strong>No se localizó una imagen con procedencia/licencia verificable durante esta búsqueda.</div></div>
+<div class="species-card-head"><div><div class="species-index">FICHA 39</div><h2 class="species-scientific"><em>Mastiglanis cf. asopos</em></h2><div class="species-common">Nombre común: N/A</div></div></div>
+<div class="species-stat"><div class="species-label">Distribución registrada</div><div class="species-value">Perú; Brasil — Review</div></div>
+<div class="species-stat"><div class="species-label">Microplásticos</div><div><div class="species-tags"><span class="species-value">N/A en los registros asociados</span></div><div class="micro-note">Los resultados se muestran tal como aparecen asociados al artículo en la base; no se atribuyen a la especie de forma exclusiva cuando el artículo agrupa varias especies.</div></div></div>
+<div class="species-stat"><div class="species-label">Artículos encontrados</div><div class="article-list"><a class="article-link" href="base_datos_microplasticos.html#articulo-011"><strong>ART. 011</strong><span>Determinación de microplásticos en Carachi (Orestias luteus) e Ispi (Orestias ispi) comercializados en los principales mercados de la ciudad de Juliaca-2022</span></a><a class="article-link" href="base_datos_microplasticos.html#articulo-034"><strong>ART. 034</strong><span>Global plastic footprint: unveiling property trends, environmental fate, and emerging threats of microplastic and nanoplastics pollution across ecosystems</span></a></div></div>
+</article><article class="species-card" data-common="n/a" data-name="pimelodella geryi"><div class="species-image-placeholder"><div><strong>Imagen pendiente</strong>No se localizó una imagen con procedencia/licencia verificable durante esta búsqueda.</div></div>
+<div class="species-card-head"><div><div class="species-index">FICHA 40</div><h2 class="species-scientific"><em>Pimelodella geryi</em></h2><div class="species-common">Nombre común: N/A</div></div></div>
+<div class="species-stat"><div class="species-label">Distribución registrada</div><div class="species-value">Perú; Perú y Colombia — Oceano pacífico de Perú y Colombia</div></div>
+<div class="species-stat"><div class="species-label">Microplásticos</div><div><div class="species-tags"><span class="species-value">N/A en los registros asociados</span></div><div class="micro-note">Los resultados se muestran tal como aparecen asociados al artículo en la base; no se atribuyen a la especie de forma exclusiva cuando el artículo agrupa varias especies.</div></div></div>
+<div class="species-stat"><div class="species-label">Artículos encontrados</div><div class="article-list"><a class="article-link" href="base_datos_microplasticos.html#articulo-011"><strong>ART. 011</strong><span>Determinación de microplásticos en Carachi (Orestias luteus) e Ispi (Orestias ispi) comercializados en los principales mercados de la ciudad de Juliaca-2022</span></a><a class="article-link" href="base_datos_microplasticos.html#articulo-037"><strong>ART. 037</strong><span>In search for the sources of plastic marine litter that contaminates the Easter Island Ecoregion</span></a></div></div>
+</article><article class="species-card" data-common="crevalle jack" data-name="caranx hippos"><div class="species-image-placeholder"><div><strong>Imagen pendiente</strong>No se localizó una imagen con procedencia/licencia verificable durante esta búsqueda.</div></div>
+<div class="species-card-head"><div><div class="species-index">FICHA 41</div><h2 class="species-scientific"><em>Caranx hippos</em></h2><div class="species-common">Nombre común: Crevalle jack</div></div></div>
+<div class="species-stat"><div class="species-label">Distribución registrada</div><div class="species-value">Colombia — The Rosario Islands</div></div>
+<div class="species-stat"><div class="species-label">Microplásticos</div><div><div class="species-tags"><span class="species-tag">Fragmentos, Fibras; No; Negro, Verde y Azul. Poliester, PE, PVC, PET</span></div><div class="micro-note">Los resultados se muestran tal como aparecen asociados al artículo en la base; no se atribuyen a la especie de forma exclusiva cuando el artículo agrupa varias especies.</div></div></div>
+<div class="species-stat"><div class="species-label">Artículos encontrados</div><div class="article-list"><a class="article-link" href="base_datos_microplasticos.html#articulo-012"><strong>ART. 012</strong><span>Differential Presence of Microplastics and Mesoplastics in Coral Reef and Mangrove Fishes in Isla Grande, Colombia</span></a></div></div>
+</article><article class="species-card" data-common="lane snapper" data-name="lutjanus synagris"><figure class="species-image"><img alt="Lutjanus synagris" decoding="async" loading="lazy" src="https://inaturalist-open-data.s3.amazonaws.com/photos/461057734/original.jpg"/><figcaption><a href="https://www.inaturalist.org/taxa/131530-Lutjanus-synagris" rel="noopener noreferrer" target="_blank">Fuente: iNaturalist</a><span class="copyright">© autor de la observación; licencia según el registro</span></figcaption></figure>
+<div class="species-card-head"><div><div class="species-index">FICHA 42</div><h2 class="species-scientific"><em>Lutjanus synagris</em></h2><div class="species-common">Nombre común: Lane snapper</div></div></div>
+<div class="species-stat"><div class="species-label">Distribución registrada</div><div class="species-value">Colombia — The Rosario Islands</div></div>
+<div class="species-stat"><div class="species-label">Microplásticos</div><div><div class="species-tags"><span class="species-tag">Fragmentos, Fibras; No; Negro, Verde y Azul. Poliester, PE, PVC, PET</span></div><div class="micro-note">Los resultados se muestran tal como aparecen asociados al artículo en la base; no se atribuyen a la especie de forma exclusiva cuando el artículo agrupa varias especies.</div></div></div>
+<div class="species-stat"><div class="species-label">Artículos encontrados</div><div class="article-list"><a class="article-link" href="base_datos_microplasticos.html#articulo-012"><strong>ART. 012</strong><span>Differential Presence of Microplastics and Mesoplastics in Coral Reef and Mangrove Fishes in Isla Grande, Colombia</span></a></div></div>
+</article><article class="species-card" data-common="western atlantic seabream" data-name="archosargus rhomboidalis"><figure class="species-image"><img alt="Archosargus rhomboidalis" decoding="async" loading="lazy" src="https://cc.sisal.unam.mx/ColeccionIctiologica/assets/Fotografias/Especies1/Archosargus_rhomboidalis.jpg"/><figcaption><a href="https://cc.sisal.unam.mx/ColeccionIctiologica/InformacionDetallada.php?idRegistroBiologico=UNAM-CIRR-530" rel="noopener noreferrer" target="_blank">Fuente: Colección Ictiológica UNAM</a><span class="copyright">© Colección Ictiológica UNAM / autor indicado en la ficha</span></figcaption></figure>
+<div class="species-card-head"><div><div class="species-index">FICHA 43</div><h2 class="species-scientific"><em>Archosargus rhomboidalis</em></h2><div class="species-common">Nombre común: Western Atlantic seabream</div></div></div>
+<div class="species-stat"><div class="species-label">Distribución registrada</div><div class="species-value">Colombia — The Rosario Islands</div></div>
+<div class="species-stat"><div class="species-label">Microplásticos</div><div><div class="species-tags"><span class="species-tag">Fragmentos, Fibras; No; Negro, Verde y Azul. Poliester, PE, PVC, PET</span></div><div class="micro-note">Los resultados se muestran tal como aparecen asociados al artículo en la base; no se atribuyen a la especie de forma exclusiva cuando el artículo agrupa varias especies.</div></div></div>
+<div class="species-stat"><div class="species-label">Artículos encontrados</div><div class="article-list"><a class="article-link" href="base_datos_microplasticos.html#articulo-012"><strong>ART. 012</strong><span>Differential Presence of Microplastics and Mesoplastics in Coral Reef and Mangrove Fishes in Isla Grande, Colombia</span></a></div></div>
+</article><article class="species-card" data-common="striped mojarra" data-name="eugerres plumieri"><figure class="species-image"><img alt="Eugerres plumieri" decoding="async" loading="lazy" src="https://www.floridamuseum.ufl.edu/wp-content/uploads/sites/66/2020/02/Plate-185-scaled.jpg"/><figcaption><a href="https://www.floridamuseum.ufl.edu/discover-fish/florida-fishes-gallery/striped-mojarra/" rel="noopener noreferrer" target="_blank">Fuente: Florida Museum of Natural History</a><span class="copyright">Foto: Zachary Randall / Florida Museum of Natural History; derechos según la fuente</span></figcaption></figure>
+<div class="species-card-head"><div><div class="species-index">FICHA 44</div><h2 class="species-scientific"><em>Eugerres plumieri</em></h2><div class="species-common">Nombre común: Striped mojarra</div></div></div>
+<div class="species-stat"><div class="species-label">Distribución registrada</div><div class="species-value">Colombia — The Rosario Islands</div></div>
+<div class="species-stat"><div class="species-label">Microplásticos</div><div><div class="species-tags"><span class="species-tag">Fragmentos, Fibras; No; Negro, Verde y Azul. Poliester, PE, PVC, PET</span></div><div class="micro-note">Los resultados se muestran tal como aparecen asociados al artículo en la base; no se atribuyen a la especie de forma exclusiva cuando el artículo agrupa varias especies.</div></div></div>
+<div class="species-stat"><div class="species-label">Artículos encontrados</div><div class="article-list"><a class="article-link" href="base_datos_microplasticos.html#articulo-012"><strong>ART. 012</strong><span>Differential Presence of Microplastics and Mesoplastics in Coral Reef and Mangrove Fishes in Isla Grande, Colombia</span></a></div></div>
+</article></section><footer class="species-footer">Fuente: base de datos de artículos de microplásticos · 44 especies identificables en los registros disponibles.</footer></div></main><script>
+const cards=[...document.querySelectorAll('.species-card')];
+const search=document.getElementById('speciesSearch');const af=document.getElementById('articleFilter');const mf=document.getElementById('microFilter');const count=document.getElementById('speciesCount');
+function filter(){const q=search.value.trim().toLowerCase();const a=af.value;const m=mf.value;let shown=0;cards.forEach(c=>{const text=c.innerText.toLowerCase();const okq=!q||text.includes(q);const oka=a==='all'||c.innerHTML.includes('articulo-'+String(a).padStart(3,'0'));const okm=m==='all'||(m==='yes'&&c.querySelector('.species-tags .species-tag'))||(m==='no'&&!c.querySelector('.species-tags .species-tag'));const ok=okq&&oka&&okm;c.style.display=ok?'block':'none';if(ok)shown++});count.textContent=shown+' fichas visibles · '+cards.length+' especies identificables';}
+[search,af,mf].forEach(x=>x.addEventListener('input',filter));filter();
+</script></body></html>
