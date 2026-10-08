@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sobre el estudio · Microplásticos en peces</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root{
+    --carbon:#0D0E15;
+    --white:#FFFFFF;
+    --paper:#F7F8F8;
+    --steel:#D8DEE2;
+    --muted:#59616B;
+    --volt:#00A2FF;
+    --volt-soft:#E8F6FF;
+    --line:#BFC8CE;
+    --max:1240px;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+    margin:0;
+    background:var(--paper);
+    color:var(--carbon);
+    font-family:'Plus Jakarta Sans',sans-serif;
+}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+
+.page{
+    max-width:var(--max);
+    margin:auto;
+    padding:34px 28px 80px;
+}
+
+.mono{
+    font-family:'JetBrains Mono',monospace;
+    letter-spacing:.08em;
+}
+
+.nav{
+    display:flex;
+    justify-content:space-between;
+    gap:12px;
+    flex-wrap:wrap;
+    margin-bottom:54px;
+}
+.nav a{
+    border:1px solid var(--steel);
+    padding:10px 14px;
+    font:11px 'JetBrains Mono',monospace;
+    text-transform:uppercase;
+}
+.nav a:hover{
+    background:var(--carbon);
+    color:var(--white);
+}
+
+.kicker{
+    display:inline-block;
+    padding:7px 11px;
+    background:var(--volt);
+    color:var(--carbon);
+    font:11px 'JetBrains Mono',monospace;
+    text-transform:uppercase;
+    letter-spacing:.18em;
+    margin-bottom:20px;
+}
+
+.hero{
+    display:grid;
+    grid-template-columns:1.15fr .85fr;
+    gap:34px;
+    align-items:end;
+    padding-bottom:48px;
+    border-bottom:1px solid var(--carbon);
+}
+
+h1{
+    font-size:clamp(48px,8vw,104px);
+    line-height:.9;
+    letter-spacing:-.055em;
+    margin:0;
+    font-weight:800;
+}
+
+.hero-copy{
+    max-width:650px;
+    font-size:18px;
+    line-height:1.8;
+    color:#414850;
+}
+
+.hero-copy strong{color:var(--carbon)}
+
+.big-number{
+    font:700 clamp(72px,10vw,130px) 'JetBrains Mono',monospace;
+    line-height:.8;
+    color:var(--volt);
+    letter-spacing:-.08em;
+}
+
+.section{
+    padding:55px 0;
+    border-bottom:1px solid var(--steel);
+}
+
+.section-head{
+    display:flex;
+    justify-content:space-between;
+    gap:30px;
+    align-items:end;
+    margin-bottom:28px;
+}
+
+.section-head h2{
+    margin:0;
+    font-size:clamp(32px,5vw,58px);
+    line-height:.95;
+    letter-spacing:-.045em;
+}
+
+.section-head p{
+    max-width:500px;
+    margin:0;
+    color:var(--muted);
+    line-height:1.7;
+}
+
+.objective{
+    display:grid;
+    grid-template-columns:.7fr 1.3fr;
+    gap:28px;
+}
+
+.objective-box{
+    background:var(--carbon);
+    color:var(--white);
+    padding:28px;
+    min-height:250px;
+}
+
+.objective-box .mono{
+    color:var(--volt);
+    font-size:11px;
+}
+
+.objective-box h3{
+    font-size:31px;
+    line-height:1.05;
+    margin:55px 0 0;
+}
+
+.objective-text{
+    font-size:21px;
+    line-height:1.65;
+    margin:0;
+}
+
+.people{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+}
+
+.person{
+    background:var(--white);
+    border:1px solid var(--steel);
+    padding:22px;
+    min-height:250px;
+    transition:.2s ease;
+}
+.person:hover{
+    transform:translateY(-4px);
+    border-color:var(--carbon);
+}
+
+.person .index{
+    font:12px 'JetBrains Mono',monospace;
+    color:var(--volt);
+}
+
+.person h3{
+    font-size:28px;
+    line-height:1;
+    margin:46px 0 10px;
+    letter-spacing:-.035em;
+}
+
+.person p{
+    margin:0;
+    color:var(--muted);
+    line-height:1.6;
+}
+
+.person .person-link{
+    display:inline-block;
+    margin-top:22px;
+    border-bottom:1px solid var(--carbon);
+    font:11px 'JetBrains Mono',monospace;
+    text-transform:uppercase;
+}
+
+.gallery{
+    display:grid;
+    grid-template-columns:1.4fr .8fr .8fr;
+    grid-auto-rows:230px;
+    gap:12px;
+}
+
+.photo{
+    position:relative;
+    overflow:hidden;
+    background:
+        linear-gradient(135deg,#e9eef1 25%,#d9e1e5 25%,#d9e1e5 50%,#e9eef1 50%,#e9eef1 75%,#d9e1e5 75%);
+    background-size:28px 28px;
+    border:1px solid var(--steel);
+}
+
+.photo:first-child{
+    grid-row:span 2;
+}
+
+.photo img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.photo .caption{
+    position:absolute;
+    left:0;
+    right:0;
+    bottom:0;
+    padding:15px;
+    background:linear-gradient(transparent,rgba(13,14,21,.92));
+    color:white;
+    padding-top:45px;
+}
+
+.photo .caption span{
+    display:block;
+    font:10px 'JetBrains Mono',monospace;
+    color:var(--volt);
+    text-transform:uppercase;
+    margin-bottom:4px;
+}
+
+.photo .caption b{
+    font-size:13px;
+}
+
+.note{
+    background:var(--volt-soft);
+    border-left:4px solid var(--volt);
+    padding:17px 19px;
+    color:#3E464E;
+    line-height:1.7;
+    margin-top:18px;
+}
+
+.timeline{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    border-top:1px solid var(--carbon);
+}
+.phase{
+    padding:20px 16px;
+    border-right:1px solid var(--steel);
+}
+.phase:last-child{border-right:0}
+.phase .num{
+    font:12px 'JetBrains Mono',monospace;
+    color:var(--volt);
+}
+.phase h3{
+    font-size:20px;
+    margin:12px 0 8px;
+}
+.phase p{
+    color:var(--muted);
+    line-height:1.6;
+    font-size:14px;
+}
+
+.cta{
+    margin-top:35px;
+    background:var(--carbon);
+    color:var(--white);
+    padding:30px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:25px;
+}
+.cta h2{
+    margin:0;
+    font-size:30px;
+    letter-spacing:-.03em;
+}
+.cta p{
+    color:#C7CDD2;
+    line-height:1.6;
+    max-width:620px;
+}
+.cta-links{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+}
+.cta-links a{
+    padding:11px 14px;
+    border:1px solid #626A73;
+    font:10px 'JetBrains Mono',monospace;
+    text-transform:uppercase;
+}
+.cta-links a:hover{
+    background:var(--volt);
+    border-color:var(--volt);
+    color:var(--carbon);
+}
+
+@media(max-width:900px){
+    .hero,.objective{grid-template-columns:1fr}
+    .people{grid-template-columns:1fr 1fr}
+    .gallery{grid-template-columns:1fr 1fr}
+    .photo:first-child{grid-row:span 1}
+    .timeline{grid-template-columns:1fr 1fr}
+    .phase:nth-child(2){border-right:0}
+}
+
+@media(max-width:620px){
+    .page{padding:24px 15px 55px}
+    .hero{padding-bottom:32px}
+    .people,.gallery,.timeline{grid-template-columns:1fr}
+    .gallery{grid-auto-rows:250px}
+    .section{padding:40px 0}
+    .section-head{display:block}
+    .section-head p{margin-top:15px}
+    .cta{display:block}
+    .cta-links{margin-top:20px}
+}
+</style>
+</head>
+
+<body>
+<main class="page">
+
+    <nav class="nav">
+        <a href="index.html">← Volver al inicio</a>
+        <a href="base-datos.html">Base de datos →</a>
+    </nav>
+
+    <header class="hero">
+        <div>
+            <span class="kicker">Proyecto final · Peces Neotropicales</span>
+            <h1>Detrás de<br>los datos.</h1>
+        </div>
+
+        <div class="hero-copy">
+            <p>
+                Somos <strong>Luisa Juliana Vásquez</strong> y <strong>Juan Diego Piedrahita</strong>,
+                estudiantes de <strong>décimo semestre de Biología de la Universidad del Tolima</strong>.
+            </p>
+            <p>
+                Junto con nuestra profesora <strong>Adriana Forero</strong>, desde la asignatura
+                <strong>Peces Neotropicales</strong>, desarrollamos un trabajo de búsqueda,
+                organización y divulgación científica alrededor de los <strong>microplásticos en peces</strong>.
+            </p>
+        </div>
+    </header>
+
+    <section class="section">
+        <div class="section-head">
+            <div>
+                <span class="mono">01 · EL PROYECTO</span>
+                <h2>De una tarea<br>a una herramienta.</h2>
+            </div>
+            <p>
+                El proyecto final se convirtió en una base de datos pensada no solo para reunir
+                información científica, sino también para hacerla más fácil de explorar,
+                comparar y comunicar.
+            </p>
+        </div>
+
+        <div class="objective">
+            <div class="objective-box">
+                <span class="mono">NUESTRO OBJETIVO</span>
+                <h3>Convertir información científica dispersa en conocimiento accesible.</h3>
+            </div>
+
+            <p class="objective-text">
+                Nuestro objetivo fue <strong>recopilar y organizar información científica sobre
+                la presencia de microplásticos en peces</strong>, identificando especies,
+                localidades, ambientes, cuerpos de agua, tipos de microplásticos y metodologías
+                empleadas en diferentes estudios. A partir de esta recopilación construimos
+                una herramienta de consulta y divulgación que permite acercarse al problema
+                desde una mirada biológica y científica.
+            </p>
+        </div>
+
+        <div class="note">
+            <strong>¿Por qué peces?</strong>
+            Los peces permiten aproximarnos al problema desde organismos que interactúan con
+            diferentes ambientes acuáticos y que pueden aportar información sobre la presencia
+            y distribución de partículas plásticas en los ecosistemas.
+        </div>
+    </section>
+
+    <section class="section" id="equipo">
+        <div class="section-head">
+            <div>
+                <span class="mono">02 · QUIÉNES SOMOS</span>
+                <h2>Las personas<br>detrás del estudio.</h2>
+            </div>
+            <p>
+                Tres miradas que se encontraron en una misma pregunta:
+                ¿qué nos está diciendo la evidencia científica sobre los microplásticos en peces?
+            </p>
+        </div>
+
+        <div class="people">
+            <article class="person" id="luisa">
+                <span class="index">01 / ESTUDIANTE</span>
+                <h3><a href="#luisa">Luisa<br>Vásquez</a></h3>
+                <p>Estudiante de décimo semestre de Biología · Universidad del Tolima.</p>
+                <a class="person-link" href="#luisa">Ver participación ↗</a>
+            </article>
+
+            <article class="person" id="juan-diego">
+                <span class="index">02 / ESTUDIANTE</span>
+                <h3><a href="#juan-diego">Juan Diego<br>Piedrahita</a></h3>
+                <p>Estudiante de décimo semestre de Biología · Universidad del Tolima.</p>
+                <a class="person-link" href="#juan-diego">Ver participación ↗</a>
+            </article>
+
+            <article class="person" id="adriana">
+                <span class="index">03 / DOCENTE</span>
+                <h3><a href="#adriana">Adriana<br>Forero</a></h3>
+                <p>Profesora de la asignatura Peces Neotropicales · Universidad del Tolima.</p>
+                <a class="person-link" href="#adriana">Ver acompañamiento ↗</a>
+            </article>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="section-head">
+            <div>
+                <span class="mono">03 · EL TRABAJO</span>
+                <h2>Una investigación<br>para explorar.</h2>
+            </div>
+            <p>
+                La página no busca reemplazar los artículos científicos.
+                Busca servir como una puerta de entrada hacia ellos.
+            </p>
+        </div>
+
+        <div class="timeline">
+            <div class="phase">
+                <span class="num">01</span>
+                <h3>Buscar</h3>
+                <p>Localizar estudios científicos relacionados con microplásticos y peces.</p>
+            </div>
+            <div class="phase">
+                <span class="num">02</span>
+                <h3>Organizar</h3>
+                <p>Extraer y estructurar información comparable entre artículos.</p>
+            </div>
+            <div class="phase">
+                <span class="num">03</span>
+                <h3>Relacionar</h3>
+                <p>Conectar especies, lugares, metodologías y tipos de microplásticos.</p>
+            </div>
+            <div class="phase">
+                <span class="num">04</span>
+                <h3>Divulgar</h3>
+                <p>Transformar la base en una experiencia visual, interactiva y educativa.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="section-head">
+            <div>
+                <span class="mono">04 · PARTICIPACIÓN</span>
+                <h2>El estudio<br>en imágenes.</h2>
+            </div>
+            <p>
+                      <!--  Aquí puedes mostrar fotografías propias de nuestra participación,
+                trabajo de búsqueda, reuniones, laboratorio, campo o presentación final.
+                        -->
+            </p>
+        </div>
+
+        <!--
+            REEMPLAZA estas rutas por tus fotografías reales.
+            Ejemplo:
+            imagenes/luisa-juan-trabajando.jpg
+            imagenes/presentacion-proyecto.jpg
+            imagenes/estudio-microplasticos.jpg
+        -->
+        <div class="gallery">
+            <figure class="photo">
+                <img src="https://www.researchgate.net/publication/276205840/figure/fig1/AS:915031306821632@1595171872381/Figura-11-Bases-de-datos-de-revistas-y-libros-cientificos-mundiales-y-colombianas.png"
+                     alt="Participación de Luisa Vásquez y Juan Diego Piedrahita en el desarrollo del proyecto"
+                     onerror="this.style.display='none'">
+                <figcaption class="caption">
+                    <span>Participación</span>
+                    <b>Trabajo y construcción de la base de datos</b>
+                </figcaption>
+            </figure>
+
+            <figure class="photo">
+                <img src="images/participacion.jpg"
+                     alt="Participación en el proyecto final de Peces Neotropicales"
+                     onerror="this.style.display='none'">
+                <figcaption class="caption">
+                    <span>Proceso</span>
+                    <b>Búsqueda y organización de información científica</b>
+                </figcaption>
+            </figure>
+
+            <figure class="photo">
+                <img src="https://www.gaceta.unam.mx/wp-content/uploads/2023/09/230925-aca3-des-f1-Microplasticos-riesgo-creciente-para-salud.jpg"
+                     alt="Material visual relacionado con el estudio de microplásticos en peces"
+                     onerror="this.style.display='none'">
+                <figcaption class="caption">
+                    <span>Estudio</span>
+                    <b>Microplásticos y peces</b>
+                </figcaption>
+            </figure>
+
+            <figure class="photo">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFjAzbtvt8SxmoM8mOST0flDsaKPmCm4iCLj3kZDiO73n44OW0JPb1H0M&s=10"
+                     alt="Imagen del proceso o resultados del estudio"
+                     onerror="this.style.display='none'">
+                <figcaption class="caption">
+                    <span>Resultados</span>
+                    <b>De los artículos a una base de datos</b>
+                </figcaption>
+            </figure>
+
+            <figure class="photo">
+                <img src="images/participacion2.jpg"
+                     alt="Presentación o socialización del proyecto"
+                     onerror="this.style.display='none'">
+                <figcaption class="caption">
+                    <span>Divulgación</span>
+                    <b>Compartir la evidencia científica</b>
+                </figcaption>
+            </figure>
+        </div>
+<!--
+        <div class="note">
+            <strong>Nota:</strong>
+            las fotografías de esta sección deben ser imágenes propias o contar con permiso
+            de uso. Para las imágenes tomadas de artículos científicos, conserva siempre
+            la referencia y el copyright correspondiente.
+        </div>
+-->
+    </section>
+
+    <section class="section">
+        <div class="cta">
+            <div>
+                <h2>Explora el resultado.</h2>
+                <p>
+                    Esta investigación terminó convirtiéndose en una experiencia para consultar
+                    artículos, explorar especies, observar patrones geográficos y acercarse a
+                    las metodologías utilizadas para estudiar microplásticos.
+                </p>
+            </div>
+
+            <div class="cta-links">
+                <a href="base-datos.html">Base de datos</a>
+                <a href="fichas_especies_microplasticos.html">Especies</a>
+                <a href="mapa_microplasticos.html">Mapa</a>
+                <a href="metodologias_y_control.html">Metodologías</a>
+            </div>
+        </div>
+    </section>
+
+</main>
+</body>
+</html>
